@@ -1,0 +1,67 @@
+@(planoDeCurso: PlanoDeCurso);
+
+@import helper._ 
+
+<br>
+@main("Meu curso") {
+</br>
+
+<head>
+	<script type="text/javascript" src="assets/javascripts/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="assets/javascripts/js/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="assets/javascripts/DragAndDrop.js"></script>
+	
+	<div class="titulo">
+		<br>
+			<nome-principal>Meu Curso</nome-principal>
+		</br>
+	</div>
+
+</head>
+
+<body>
+	
+	<div id ="divPrincipal" class="wrapper">
+		<div id="botoes">
+
+			<button id="1" type="button" onclick="alterTable(1)" class="btn">1º Período</button>
+			<button id="2" type="button" onclick="alterTable(2)" class="btn">2º Período</button>
+			<button id="3" type="button" onclick="alterTable(3)" class="btn">3º Período</button>
+			<button id="4" type="button" onclick="alterTable(4)" class="btn">4º Período</button>
+			<button id="5" type="button" onclick="alterTable(5)" class="btn">5º Período</button>
+			<button id="6" type="button" onclick="alterTable(6)" class="btn">6º Período</button>
+			<button id="7" type="button" onclick="alterTable(7)" class="btn">7º Período</button>
+			<button id="8" type="button" onclick="alterTable(8)" class="btn">8º Período</button>
+
+		</div>
+		<div id="colunasDeDisciplinas">
+			<div id="periodoAtual" class="coluna">
+				<br></br><br><br/>
+					 <titulo>1º Período</titulo>
+				    	   <ul id="list1" class="sortable-list">
+					                @for(disciplina <- planoDeCurso.getDisciplinasDoPeriodo(1)){
+					                    <li class="descricaoDeDisciplina">
+						                     <nome>@disciplina.getNome()</nome>
+						                     <descricao>@disciplina.getCreditos()</descricao><text> créditos</text>
+						                </li>
+					                }
+						   </ul>
+							<creditos> Créditos : @planoDeCurso.getTotalDeCreditosDoPeriodo(1)</creditos>
+		</div>
+			<div id="disciplinasNaoAlocadas" class="coluna">
+				<br></br><br><br />
+					<titulo>Disciplinas não alocadas</titulo>
+						<ul id="notAlocatedList" class="sortable-list">
+							@for(disc <- planoDeCurso.getDisciplinasNaoAlocadas()){
+								 <li class="descricaoDeDisciplina">
+				                       <nome>@disc.getNome()</nome>
+				                       <descricao> @disc.getCreditos() creditos</descricao>
+				                 </li>
+							}
+						</ul>
+			</div>
+		</div>
+	</div>
+
+</body>
+}

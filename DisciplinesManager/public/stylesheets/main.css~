@@ -1,0 +1,118 @@
+nome {
+	color: #153e63;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+descricao {
+	font-size: 12px;
+}
+
+.wrapper{
+	height: 100%;
+}
+
+
+creditos {
+	color: #456A8B;
+	font-size: 20px;
+	font-weight: bold;
+}
+periodos,diciplinas-ofertadas {
+	color: #456A8B;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+nome-principal {
+	color: #FFFFFF;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.body-back {
+	background-color: #153e63;
+}
+
+.wrapper {
+	font-family: arial;
+	max-width: 1300px;
+	margin : auto;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+#content {
+	padding-top: 80px;
+	padding-bottom: 30px;
+}
+
+.titulo {
+	width: 100%;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#colunas {
+	margin:0 auto;
+	margin-top:50px;
+	margin-bottom:10px;
+	height: 600px;
+	width: 1280px; 
+	display: inherit;
+	border-radius: 10px;
+	ALIGN: CENTER;
+}
+
+.coluna {
+	background-color: #d8e2eb;
+	float: left;
+	height: 600px;
+	width: 600px;
+	margin-left: 10.5px;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding-top: 2px;
+	text-align: center;
+	overflow:auto;
+}
+
+#disciplinas {
+	background-color: none;
+	margin: auto;
+	margin-top: 10px;
+	width: 1400px;
+	display: inherit;
+	float:left;
+}
+
+.descricaoDeDisciplina{
+	width: 480px;
+}
+.disciplina, .periodo{
+	width: 138px;
+}
+
+.disciplina, .descricaoDeDisciplina, .periodo {
+	background-color: #FFFFFF;
+	margin:auto;
+	margin-top:6px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.periodoButton {
+	margin-left : 20;
+	float:left;
+}
+
+.disciplina:hover {
+	background-color: #b2cfe9;
+}
+
+.float-left {
+	float: left;
+	margin-left: 10px;	
+}
