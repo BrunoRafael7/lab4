@@ -67,17 +67,6 @@ public class ColetorDeDisciplinas {
 		}
 		return preRequisitos;
 	}
-	/*
-	 * DELETAR APOS OS TESTES SEREM CONCLUIDOS
-	 */
-	public Disciplina get(String nomeDaDisciplina){
-		for(Disciplina disc : disciplinasColetadas){
-			if(disc.getNome().equals(nomeDaDisciplina)){
-				return disc;
-			}
-		}
-		return null;
-	}
 
 	public List<Disciplina> getDisciplinasColetadas() {
 		return disciplinasColetadas;

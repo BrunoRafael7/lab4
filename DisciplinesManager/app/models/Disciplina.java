@@ -43,7 +43,11 @@ public class Disciplina{
 		return alocada;
 	}
 
-	public void setAlocada(boolean alocada) {
-		this.alocada = alocada;
+	public void alocaDisciplina() {
+			this.alocada = true;
+	}
+	
+	public void desalocaDisciplina(){
+		this.alocada = false;
 	}
 }

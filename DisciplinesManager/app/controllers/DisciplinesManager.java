@@ -1,6 +1,10 @@
 package controllers;
 
-
+/**
+ * Classe Controladora do Sistema
+ * @author
+ *
+ */
 public class DisciplinesManager{
 	
 	private DisciplinesManager disciplineManager;

@@ -9,8 +9,8 @@ public class GradeCurricular {
 	private Map<String, Disciplina> disciplinas;
 	
 	/*
-	 * CREATOR : ColetorDeDisciplinas será referenciada em GradeCurricular ,
-	 * pois GradeCurricular usa muito o ColetorDeDisciplinas
+	 * CREATOR : ColetorDeDisciplinas será instanciada em GradeCurricular ,
+	 * pois GradeCurricular é responsável pelas disciplinas que são recebidas pelo ColetorDeDisciplinas
 	 */
 	private ColetorDeDisciplinas coletorDeDisciplinas;
 	
