@@ -7,7 +7,6 @@ $(function(){
 	criarDivs();
 	connectToLists();
 	calculaTotalDeCreditosDoPeriodoAtual();
-	alert(');
 	totalDeCreditosAtual = parseInt($("#totalDeCreditos").html());
 	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
 		maximoDeCreditosPorPeriodo = parseInt(result);
@@ -20,8 +19,7 @@ function connectToLists(){
 			containment: '#colunasDeDisciplinas',
 			stop :  function (ev, ui) {
 				calculaTotalDeCreditosDoPeriodoAtual();
-				alert("total de Creditos Atual " + totalDeCreditosAtual);
-              	if (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) {
+              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || indiceDoPeriodoAtual == 1) {
               		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
                 }else{
                 	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
