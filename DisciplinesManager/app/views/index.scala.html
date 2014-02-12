@@ -9,7 +9,7 @@
 <head>
 	<script type="text/javascript" src="assets/javascripts/js/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="assets/javascripts/js/jquery-ui-1.9.2.custom.js"></script>
-	<script type="text/javascript" src="assets/javascripts/DragAndDrop.js"></script>
+	<script type="text/javascript" src="assets/javascripts/scripts.js"></script>
 	
 	<div class="titulo">
 		<br>
@@ -47,7 +47,7 @@
 					                }
 						   </ul>
 							<creditos> Créditos :  <totalDeCreditos id="totalDeCreditos">@planoDeCurso.getTotalDeCreditosDoPeriodo(1)</totalDeCreditos></creditos> 
-		</div>
+			</div>
 			<div id="disciplinasNaoAlocadas" class="coluna">
 				<br></br><br><br />
 					<titulo>Disciplinas não alocadas</titulo>
@@ -55,7 +55,7 @@
 							@for(disc <- planoDeCurso.getDisciplinasNaoAlocadas()){
 								 <li class="descricaoDeDisciplina">
 				                       <nome>@disc.getNome()</nome>
-				                       <descricao> @disc.getCreditos() creditos</descricao>
+				                       <descricao>@disc.getCreditos()</descricao><text> créditos</text>
 				                 </li>
 							}
 						</ul>
