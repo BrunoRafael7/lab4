@@ -16,21 +16,25 @@ $(function(){
 function connectToLists(){
 	$('#colunasDeDisciplinas .sortable-list').sortable({
 			connectWith: '#colunasDeDisciplinas .sortable-list',
-			containment: '#colunasDeDisciplinas',
 			stop :  function (ev, ui) {
 				calculaTotalDeCreditosDoPeriodoAtual();
               	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || indiceDoPeriodoAtual == 1) {
               		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
                 }else{
                 	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
+                	alocaDisciplina();
                 }
             }	
 		}).disableSelection();
 }
 
+function alocaDisciplina(){
+
+}
+
 function calculaTotalDeCreditosDoPeriodoAtual(){
 	var soma = 0;
-	$("ul[id='list" + indiceDoPeriodoAtual + "'] li descricao").each(
+	$("ul[id='list" + indiceDoPeriodoAtual + "'] li descricaoDeDisciplina").each(
 		function(){
 			soma += parseInt($(this).html());
 		}
@@ -44,7 +48,7 @@ function criarDivs(){
 		conteudoDoPeriodo =	" <br></br><br><br/> " +
 							  "<titulo>" +  (i + 1)  + "º Período</titulo>" +
 				    	          "<ul id=\"list" + (i + 1) + "\" class=\"sortable-list\"></ul>"+
-				    	          "<creditos> Créditos :<totalDeCreditos> 0 </totalDeCreditos> </creditos> "
+				    	          "<creditos> Créditos : <totalDeCreditos> 0 </totalDeCreditos> </creditos> "
 				    	    ;
 		divs[i] = conteudoDoPeriodo;
 	}
