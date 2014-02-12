@@ -6,7 +6,7 @@ import java.util.List;
 public class PlanoDeCurso {
 //        private final int TOTAL_DE_PERIODOS = 10;
 //        private final int MINIMO_DE_CREDITOS = 14;
-//        private final int MAXIMO_DE_CREDITOS = 28;
+        public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
         private List<Periodo> periodos;
         
         private GradeCurricular gradeCurricular;
@@ -21,12 +21,6 @@ public class PlanoDeCurso {
                  */
                 periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(1)));
         }
-        public int nu(){
-        	return 2234;
-        	
-        	
-        }
-
 //        public void adicionaDisciplinaAPeriodo(Disciplina disciplina, int periodo){
 //                if(this.verificaSePreRequisitosEstaoOK(disciplina, this.getPeriodos())){
 //                        periodos.get(periodo - 1).adicionaUmaDisciplina(disciplina);

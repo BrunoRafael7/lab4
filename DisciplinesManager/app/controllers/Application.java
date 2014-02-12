@@ -15,6 +15,10 @@ public class Application extends Controller{
 		return ok(views.html.index.render(planoDeCurso));
 	}
 	
+	public static Result maximoDeCreditosPorPeriodo(){
+		return ok(String.valueOf(planoDeCurso.MAXIMO_DE_CREDITOS_POR_PERIODO));
+	}
+	
 //	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){
 //		for(Disciplina disc : planoDeCurso.getDisciplinasNaoAlocadas()){
 //			if(disc.getNome().equals(disciplina)){

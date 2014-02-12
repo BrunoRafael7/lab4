@@ -1,19 +1,25 @@
 var divs = new Array();
 var CREDITOS =  "Créditos : ";
-var totalDeCreditosAtual = 24;
+var totalDeCreditosAtual;
 var indiceDoPeriodoAtual = 1;
+var maximoDeCreditosPorPeriodo;
 
 $(function(){
 	criarDivs();
 	connectToLists();
 	calculaTotalDeCreditosDoPeriodoAtual();
 	verificaLimiteDeCreditos();
+	
+	totalDeCreditosAtual = parseInt($("#totalDeCreditos").html());
+	
+	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
+		maximoDeCreditosPorPeriodo = parseInt(result);
+	});
 });
 
 function connectToLists(){
 	$('#colunasDeDisciplinas .sortable-list').sortable({
-			connectWith: '#colunasDeDisciplinas .sortable-list',
-		
+			connectWith: '#colunasDeDisciplinas .sortable-list'	
 		}).disableSelection();
 	alert(indiceDoPeriodoAtual);
 	
@@ -30,7 +36,7 @@ function connectToLists(){
 	$( "#list" + indiceDoPeriodoAtual ).on( "sortupdate", 
 		function( event, ui ) {
 			calculaTotalDeCreditosDoPeriodoAtual();
-			$("#periodoAtual creditos").html(CREDITOS + totalDeCreditosAtual);
+			$("#periodoAtual totalDeCreditos").html(CREDITOS + totalDeCreditosAtual);
 		} 
 	);
 
@@ -42,11 +48,11 @@ function verificaLimiteDeCreditos(){
 
 function verificaLimiteDeCreditos(creditoDaDisciplina){
 	if( (totalDeCreditosAtual + creditoDaDisciplina) > 28 ){
-		$("#periodoAtual creditos").css('color','#000000');
-		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'delay' );
+		$("#periodoAtual totalDeCreditos").css('color','#000000');
+		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
 
 	}else{
-		$("#periodoAtual creditos").css('color','#456A8B');
+		$("#periodoAtual totalDeCreditos").css('color','#456A8B');
 		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'enable' );
 	}
 }
@@ -66,7 +72,7 @@ function criarDivs(){
 		conteudoDoPeriodo =	" <br></br><br><br/> " +
 							  "<titulo>" +  (i + 1)  + "º Período</titulo>" +
 				    	          "<ul id=\"list" + (i + 1) + "\" class=\"sortable-list\"></ul>"+
-				    	          "<creditos> " + CREDITOS + "0 </creditos> "
+				    	          "<creditos> " + CREDITOS + "<totalDeCreditos>0 </totalDeCreditos> </creditos> "
 				    	    ;
 		divs[i] = conteudoDoPeriodo;
 	}
