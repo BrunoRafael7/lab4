@@ -1,9 +1,7 @@
 package controllers;
 
-/**
- * Classe Controladora do Sistema
- * @author
- *
+/*
+ * CONTROLLER : Classe DisciplinesManager é a controladora do sistema
  */
 public class DisciplinesManager{
 	
