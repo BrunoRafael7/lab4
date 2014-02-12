@@ -1,6 +1,8 @@
 package controllers;
 
-
+/*
+ * CONTROLLER : Classe DisciplinesManager é a controladora do sistema
+ */
 public class DisciplinesManager{
 	
 	private DisciplinesManager disciplineManager;

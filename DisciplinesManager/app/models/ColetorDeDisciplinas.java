@@ -12,15 +12,28 @@ import java.util.List;
  * Pure Fabrication : Pois esta classe está sendo usada para "coletar"
  * as disciplinas e ela não faz parte do contexto do mundo real.
  */
+
+/**
+ * Classe que coleta os dados das disciplinas de um arquivo.
+ * @author 
+ *
+ */
 public class ColetorDeDisciplinas {
 	
 	private String path = "disciplinas";
 	private List<Disciplina> disciplinasColetadas;
 	
+	/**
+	 * Construtor
+	 */
 	public ColetorDeDisciplinas(){
 		disciplinasColetadas = new LinkedList<Disciplina>();
 	}
 	
+	/**
+	 * Coleta as disciplinas do arquivo.
+	 * @return lista com as disciplinas coletadas.
+	 */
 	public List<Disciplina> coletar(){
 		try {
 			BufferedReader reader = new BufferedReader(
@@ -39,7 +52,12 @@ public class ColetorDeDisciplinas {
 		}
 		return disciplinasColetadas;
 	}
-
+	
+	/**
+	 * Método que auxilia a extração dos dados no momento da coleta
+	 * @param line
+	 * @return uma lista contendo nome, créditos e o período da disciplina.
+	 */
 	private Disciplina criarDisciplina(String[] line) {
 		
 		List<String> preRequisitos = criarListaDePreRequisitos(line[0]);
@@ -52,7 +70,12 @@ public class ColetorDeDisciplinas {
 		 */
 		return new Disciplina(preRequisitos, nome, creditos, periodo);
 	}
-
+	
+	/**
+	 * Método que auxilia a extração dos dados no momento da coleta
+	 * @param line
+	 * @return uma lista com os pré requisitos da disciplina
+	 */
 	private List<String> criarListaDePreRequisitos(String line) {
 
 		line = line.replace("[", "");
@@ -67,20 +90,12 @@ public class ColetorDeDisciplinas {
 		}
 		return preRequisitos;
 	}
-	/*
-	 * DELETAR APOS OS TESTES SEREM CONCLUIDOS
+	
+	/**
+	 * 
+	 * @return uma lista contendo todas as disciplinas coletadas.
 	 */
-	public Disciplina get(String nomeDaDisciplina){
-		for(Disciplina disc : disciplinasColetadas){
-			if(disc.getNome().equals(nomeDaDisciplina)){
-				return disc;
-			}
-		}
-		return null;
-	}
-
 	public List<Disciplina> getDisciplinasColetadas() {
 		return disciplinasColetadas;
 	}
-	
 }
