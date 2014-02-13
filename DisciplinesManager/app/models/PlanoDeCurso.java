@@ -29,6 +29,14 @@ public class PlanoDeCurso {
 		 * planoDeCurso é composta de Periodos
 		 */
 		periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO)));
+		
+		periodos.add(new Periodo()); //SEGUNDO PERIODO VAZIO
+		periodos.add(new Periodo()); //TERCEIRO PERIODO VAZIO
+		periodos.add(new Periodo()); //QUARTO PERIODO VAZIO
+		periodos.add(new Periodo()); //QUINTO PERIODO VAZIO
+		periodos.add(new Periodo()); //SEXTO PERIODO VAZIO
+		periodos.add(new Periodo()); //SETIMO PERIODO VAZIO
+		periodos.add(new Periodo()); //OITAVO PERIODO VAZIO
 	}
 	
 	/**
