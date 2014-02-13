@@ -1,5 +1,6 @@
 package controllers;
 
+import models.MaximoDeCreditosExcedidoException;
 import models.PlanoDeCurso;
 import models.PreRequisitosException;
 import play.mvc.Controller;
@@ -20,7 +21,7 @@ public class Application extends Controller{
 		return ok(String.valueOf(planoDeCurso.MAXIMO_DE_CREDITOS_POR_PERIODO));
 	}
 	
-	public static Result alocarDisciplina(String nome, Integer periodo) throws PreRequisitosException{
+	public static Result alocarDisciplina(String nome, Integer periodo) throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		planoDeCurso.alocaDisciplina(nome, periodo);
 		return ok("alocado");
 	}

@@ -10,10 +10,11 @@ import java.util.List;
  * 
  */
 public class PlanoDeCurso {
-	// private final int MINIMO_DE_CREDITOS = 14;
+	public final int MINIMO_DE_CREDITOS_POR_PERIODO = 14;
 	public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
 	public final int PRIMEIRO_PERIODO = 1;
-
+	public final int QUANTIDADE_DE_PERIODOS = 8;
+	
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
 
@@ -28,7 +29,7 @@ public class PlanoDeCurso {
 		 * planoDeCurso é composta de Periodos
 		 */
 		alocaDisciplinaParaOPrimeiroPeriodo();
-		for (int i = 1; i < 8; i++) {
+		for (int i = 1; i < QUANTIDADE_DE_PERIODOS; i++) {
 			periodos.add(new Periodo());
 		}
 	}
@@ -104,14 +105,19 @@ public class PlanoDeCurso {
 	 *            a ser alocada
 	 * @param periodo
 	 *            para alocar disciplina
+	 * @throws MaximoDeCreditosExcedidoException 
 	 */
-	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException {
+	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException, MaximoDeCreditosExcedidoException {
 		if (periodo != PRIMEIRO_PERIODO) {
 			Periodo p = periodos.get(periodo - 1);
 			Disciplina d = gradeCurricular.get(disciplina);
 			if (d.getPeriodo() != PRIMEIRO_PERIODO) {
-				d.setAlocada(true);
-				p.add(d);
+				if(p.getTotalDeCreditos() < MAXIMO_DE_CREDITOS_POR_PERIODO){
+					d.setAlocada(true);
+					p.add(d);
+				}else{
+					throw new MaximoDeCreditosExcedidoException("Limite de créditos atingido.");
+				}
 			}else{
 				throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
 			}

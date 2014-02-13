@@ -1,6 +1,7 @@
 import java.util.List;
 
 import models.Disciplina;
+import models.MaximoDeCreditosExcedidoException;
 import models.PlanoDeCurso;
 import models.PreRequisitosException;
 
@@ -33,7 +34,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void naoDevePermitirAddNovaDisciplinaAoPrimeiroPeriodo() throws PreRequisitosException{
+	public void naoDevePermitirAddNovaDisciplinaAoPrimeiroPeriodo() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int PRIMEIRO_PERIODO = 1;
 		
 		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
@@ -65,7 +66,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void deveAddNovaDisciplinaAoSegundoPeriodo() throws PreRequisitosException{
+	public void deveAddNovaDisciplinaAoSegundoPeriodo() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int SEGUNDO_PERIODO = 2;
 		Assert.assertEquals(0, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
 		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
@@ -86,7 +87,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void deveAddNovaDisciplinaEmVariosPeriodos() throws PreRequisitosException{
+	public void deveAddNovaDisciplinaEmVariosPeriodos() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int SEGUNDO_PERIODO = 2;
 		int TERCEIRO_PERIODO = 3;
 		int  QUARTO_PERIODO = 4;
@@ -122,7 +123,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void disciplinasDoPrimeiroPeriodoNaoDevemEstarDisponiveisParaAlocar() throws PreRequisitosException{
+	public void disciplinasDoPrimeiroPeriodoNaoDevemEstarDisponiveisParaAlocar() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int QUINTO_PERIODO = 5;
 		
 		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUINTO_PERIODO));
@@ -167,7 +168,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void deveAtualizarQuantidadeDeCreditos() throws PreRequisitosException{
+	public void deveAtualizarQuantidadeDeCreditos() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int TERCEIRO_PERIODO = 3;
 		
 		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
@@ -189,6 +190,27 @@ public class BehaviorTest {
 	}
 	
 	@Test
+	public void naoDeveExcederLimiteDeCreditos() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
+		int SEGUNDO_PERIODO = 2;
+		
+		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Optativa_1", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
+		Assert.assertEquals(28, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+
+		try{
+			planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
+		}catch(MaximoDeCreditosExcedidoException e){
+			e.getMessage();
+		}
+	}
+	
+	@Test
 	public void naoDeveDesalocarDisciplinaDoPrimeiroPeriodo(){
 		int PRIMEIRO_PERIODO = 1;
 		
@@ -205,7 +227,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void deveDesalocarDisciplina() throws PreRequisitosException{
+	public void deveDesalocarDisciplina() throws PreRequisitosException, MaximoDeCreditosExcedidoException{
 		int SEGUNDO_PERIODO = 2;
 		
 		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
