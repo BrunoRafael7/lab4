@@ -4,21 +4,16 @@ nome {
 	font-weight: bold;
 }
 
-descricao {
+descricaoDeDisciplina, text{
 	font-size: 12px;
 }
-
-.wrapper{
-	height: 100%;
-}
-
 
 creditos {
 	color: #456A8B;
 	font-size: 20px;
 	font-weight: bold;
 }
-periodos,diciplinas-ofertadas {
+titulo, diciplinas-ofertadas {
 	color: #456A8B;
 	font-size: 20px;
 	font-weight: bold;
@@ -40,6 +35,7 @@ nome-principal {
 	margin : auto;
 	padding-top: 10px;
 	padding-bottom: 20px;
+	height:100%;
 }
 
 #content {
@@ -53,15 +49,15 @@ nome-principal {
 	text-align: center;
 }
 
-#colunas {
-	margin:0 auto;
+.sortable-list{
+    padding: 10px;
+}
+
+#colunasDeDisciplinas {
 	margin-top:50px;
 	margin-bottom:10px;
 	height: 600px;
-	width: 1280px; 
-	display: inherit;
-	border-radius: 10px;
-	ALIGN: CENTER;
+	width: 1280px;
 }
 
 .coluna {
@@ -69,35 +65,29 @@ nome-principal {
 	float: left;
 	height: 600px;
 	width: 600px;
-	margin-left: 10.5px;
-	margin-top: 10px;
+	margin-left:15px;
 	border-radius: 10px;
-	padding-top: 2px;
 	text-align: center;
 	overflow:auto;
 }
 
-#disciplinas {
-	background-color: none;
-	margin: auto;
-	margin-top: 10px;
-	width: 1400px;
-	display: inherit;
-	float:left;
+#botoes{
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
 }
 
-.descricaoDeDisciplina{
+.descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
 	width: 480px;
 }
-.disciplina, .periodo{
+.disciplina{
 	width: 138px;
 }
 
-.disciplina, .descricaoDeDisciplina, .periodo {
+.disciplina, .descricaoDeDisciplinaAlocada,.descricaoDeDisciplinaNaoAlocada .btn {
 	background-color: #FFFFFF;
 	margin:auto;
 	margin-top:6px;
-	border-radius: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	text-align: center;

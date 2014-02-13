@@ -26,6 +26,11 @@ public class Application extends Controller{
 		return ok("ok");
 	}
 	
+	public static Result desalocarDisciplina(String nome, Integer periodo){
+		planoDeCurso.desalocaDisciplina(nome, periodo);
+		return ok("OK");
+	}
+	
 //	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){
 //		for(Disciplina disc : planoDeCurso.getDisciplinasNaoAlocadas()){
 //			if(disc.getNome().equals(disciplina)){

@@ -115,6 +115,11 @@ public class BehaviorTest {
 	}
 	
 	@Test
+	public void deveDesalocarDisciplina(){
+		
+	}
+	
+	@Test
 	public void deveVerificarOsPreRequisitos(){
 		
 	}

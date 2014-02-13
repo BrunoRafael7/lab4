@@ -78,14 +78,14 @@ nome-principal {
 	width:60%;
 }
 
-.descricaoDeDisciplina{
+.descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
 	width: 480px;
 }
 .disciplina{
 	width: 138px;
 }
 
-.disciplina, .descricaoDeDisciplina, .btn {
+.disciplina, .descricaoDeDisciplinaAlocada,.descricaoDeDisciplinaNaoAlocada, .btn {
 	background-color: #FFFFFF;
 	margin:auto;
 	margin-top:6px;

@@ -93,7 +93,7 @@ public class PlanoDeCurso {
 	 * @param disciplina a ser alocada
 	 * @param periodo para alocar disciplina
 	 */
-	public void alocaDisciplina(String disciplina, int periodo) {
+	public void alocaDisciplina(String disciplina, Integer periodo) {
 		if(periodo != PRIMEIRO_PERIODO){
 			Periodo p = periodos.get(periodo-1);
 			Disciplina d = gradeCurricular.get(disciplina);
@@ -102,5 +102,14 @@ public class PlanoDeCurso {
 				p.add(d);
 			}
 		}
+	}
+	
+	//MODIFICAR TRATAMENTO DE ERROS
+	public boolean desalocaDisciplina(String nome, Integer periodo) {
+		Periodo p = periodos.get(periodo-1);
+		Disciplina d = gradeCurricular.get(nome);
+		d.setAlocada(false);
+		p.remove(d);
+		return true;
 	}
 }
