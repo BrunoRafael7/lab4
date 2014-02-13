@@ -33,9 +33,12 @@ public class PlanoDeCurso {
 		}
 	}
 
+	/**
+	 * Método que aloca as disciplinas do primeiro periodo
+	 */
 	private void alocaDisciplinaParaOPrimeiroPeriodo() {
 		List<Disciplina> disciplinas = gradeCurricular
-				.getDisciplinasDoPeriodo(1);
+				.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO);
 		for (Disciplina disc : disciplinas) {
 			disc.setAlocada(true);
 		}
@@ -102,14 +105,18 @@ public class PlanoDeCurso {
 	 * @param periodo
 	 *            para alocar disciplina
 	 */
-	public void alocaDisciplina(String disciplina, Integer periodo) {
+	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException {
 		if (periodo != PRIMEIRO_PERIODO) {
 			Periodo p = periodos.get(periodo - 1);
 			Disciplina d = gradeCurricular.get(disciplina);
 			if (d.getPeriodo() != PRIMEIRO_PERIODO) {
 				d.setAlocada(true);
 				p.add(d);
+			}else{
+				throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
 			}
+		}else{
+			throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
 		}
 	}
 
