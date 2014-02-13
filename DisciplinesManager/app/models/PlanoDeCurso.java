@@ -27,10 +27,18 @@ public class PlanoDeCurso {
 		 * CREATOR : Classe PlanoDeCurso registra objetos do tipo Periodo pois
 		 * planoDeCurso é composta de Periodos
 		 */
-		periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(1)));
+		alocaDisciplinaParaOPrimeiroPeriodo();
 		for(int i = 1 ; i < 8 ; i++){
 			periodos.add(new Periodo());
 		}
+	}
+	
+	private void alocaDisciplinaParaOPrimeiroPeriodo(){
+		List<Disciplina> disciplinas = gradeCurricular.getDisciplinasDoPeriodo(1);
+		for(Disciplina disc : disciplinas){
+			disc.setAlocada(true);			
+		}
+		periodos.add(new Periodo(disciplinas));
 	}
 	
 	/**
