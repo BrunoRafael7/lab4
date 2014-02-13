@@ -16,7 +16,6 @@ public class PlanoDeCurso {
 
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
-	private final int PRIMEIRO_PERIODO = 1;
 	
 	/**
 	 * Construtor
@@ -28,7 +27,7 @@ public class PlanoDeCurso {
 		 * CREATOR : Classe PlanoDeCurso registra objetos do tipo Periodo pois
 		 * planoDeCurso é composta de Periodos
 		 */
-		periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO)));
+		periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(1)));
 	}
 	
 	/**
@@ -38,7 +37,7 @@ public class PlanoDeCurso {
 	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
-
+	
 	/**
 	 * Método que retorna todas as disciplinas de um determinado período
 	 * @param periodo
@@ -49,7 +48,6 @@ public class PlanoDeCurso {
 		return periodos.get(indiceDoPeriodo).getDisciplinas();
 	}
 
-	// tem que ser modificado, pois não é ele quem vai calcular
 	/**
 	 * Método que calcula total de créditos do período
 	 * @param periodo
@@ -63,7 +61,7 @@ public class PlanoDeCurso {
 	/*
 	 * INFORMATION EXPERT: Para que o sistema tenha Alta coesão e baixo
 	 * acoplamento, Classe Plano de curso é quem deve ter a responsablidade de
-	 * "selecionar" as disciplinas não alocadas, pois ela que conhece os
+	 * "selecionar" as disciplinas não alocadas, pois ela quem conhece os
 	 * períodos e estes são compostos de disciplinas.
 	 */
 	/**
@@ -78,5 +76,12 @@ public class PlanoDeCurso {
 			}
 		}
 		return disciplinasNaoAlocadas;
+	}
+
+	public void alocaDisciplina(String disciplina, int periodo) {
+		Periodo p = periodos.get(periodo-1);
+		Disciplina d = gradeCurricular.get(disciplina);
+		d.setAlocada(true);
+		p.add(d);
 	}
 }

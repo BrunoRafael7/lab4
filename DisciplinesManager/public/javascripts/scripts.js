@@ -1,6 +1,6 @@
 var divs = new Array();
 var totalDeCreditosAtual;
-var indiceDoPeriodoAtual = 1;
+var periodoAtual = 1;
 var maximoDeCreditosPorPeriodo;
 
 $(function(){
@@ -18,23 +18,30 @@ function connectToLists(){
 			connectWith: '#colunasDeDisciplinas .sortable-list',
 			stop :  function (ev, ui) {
 				calculaTotalDeCreditosDoPeriodoAtual();
-              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || indiceDoPeriodoAtual == 1) {
+              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || periodoAtual == 1) {
               		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
                 }else{
+                	var nomeDaDisciplina = new String(ui.item.children("nome").html());
                 	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
-                	alocaDisciplina();
+                	alocaDisciplina(nomeDaDisciplina, periodoAtual);
                 }
             }	
 		}).disableSelection();
 }
 
-function alocaDisciplina(){
-
+function alocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){
+	var url = "/DisciplinesManager/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
+       
+	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
+		function(result){
+		  alert(result);	
+		}
+	);
 }
 
 function calculaTotalDeCreditosDoPeriodoAtual(){
 	var soma = 0;
-	$("ul[id='list" + indiceDoPeriodoAtual + "'] li descricaoDeDisciplina").each(
+	$("ul[id='list" + periodoAtual + "'] li descricaoDeDisciplina").each(
 		function(){
 			soma += parseInt($(this).html());
 		}
@@ -56,9 +63,9 @@ function criarDivs(){
 }
 
 function alterTable(proximoPeriodo){
-	divs[ indiceDoPeriodoAtual - 1 ] = $('#periodoAtual').html();
+	divs[ periodoAtual - 1 ] = $('#periodoAtual').html();
 	$('#periodoAtual').html(divs[proximoPeriodo - 1]);
-	indiceDoPeriodoAtual = proximoPeriodo;
+	periodoAtual = proximoPeriodo;
 	connectToLists();
 	calculaTotalDeCreditosDoPeriodoAtual();
 	

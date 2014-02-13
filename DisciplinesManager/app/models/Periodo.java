@@ -41,7 +41,8 @@ public class Periodo {
 	 * Adiciona uma nova disciplina ao período
 	 * @param disciplina
 	 */
-	public void adicionaUmaDisciplina(Disciplina disciplina){
+	public void add(Disciplina disciplina){
+		totalDeCreditos += disciplina.getCreditos();
 		disciplinas.add(disciplina);
 	}
 	
@@ -49,7 +50,8 @@ public class Periodo {
 	 * Remove uma disciplina do período
 	 * @param disciplina
 	 */
-	public void removeDisciplina(Disciplina disciplina){
+	public void remove(Disciplina disciplina){
+		totalDeCreditos -= disciplina.getCreditos();
 		disciplinas.remove(disciplina);
 	}
 	

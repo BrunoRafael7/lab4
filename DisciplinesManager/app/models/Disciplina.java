@@ -71,17 +71,11 @@ public class Disciplina{
 	}
 
 	/**
-	 * aloca um disciplina
+	 * aloca um disciplina ou desaloca uma disciplina conforme valor passado por parâmetro,
+	 * sendo true para alocada e false para desalocada
 	 */
-	public void alocaDisciplina() {
-			this.alocada = true;
-	}
-	
-	/**
-	 * desaloca a disciplina
-	 */
-	public void desalocaDisciplina(){
-		this.alocada = false;
+	public void setAlocada(boolean alocada) {
+		this.alocada = alocada;
 	}
 	
 	/**
