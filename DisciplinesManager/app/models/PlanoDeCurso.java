@@ -9,10 +9,9 @@ import java.util.List;
  *
  */
 public class PlanoDeCurso {
-//        private final int TOTAL_DE_PERIODOS = 10;
 //        private final int MINIMO_DE_CREDITOS = 14;
-        public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
-
+    public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
+    public final int PRIMEIRO_PERIODO = 1;
 
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
@@ -88,17 +87,23 @@ public class PlanoDeCurso {
 		}
 		return disciplinasNaoAlocadas;
 	}
-	
-	//MODIFICAR TRATAMENTO DE ERROS
-	public boolean alocaDisciplina(String disciplina, Integer periodo) {
-		
-		Periodo p = periodos.get(periodo-1);
-		Disciplina d = gradeCurricular.get(disciplina);
-		d.setAlocada(true);
-		p.add(d);
-		
-		return true;
+
+	/**
+	 * Método que aloca disciplina em um determinado periodo
+	 * @param disciplina a ser alocada
+	 * @param periodo para alocar disciplina
+	 */
+	public void alocaDisciplina(String disciplina, Integer periodo) {
+		if(periodo != PRIMEIRO_PERIODO){
+			Periodo p = periodos.get(periodo-1);
+			Disciplina d = gradeCurricular.get(disciplina);
+			if(d.getPeriodo() != PRIMEIRO_PERIODO){
+				d.setAlocada(true);
+				p.add(d);
+			}
+		}
 	}
+	
 	//MODIFICAR TRATAMENTO DE ERROS
 	public boolean desalocaDisciplina(String nome, Integer periodo) {
 		Periodo p = periodos.get(periodo-1);
