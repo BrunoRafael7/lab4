@@ -69,6 +69,10 @@ public class Disciplina{
 	public boolean isAlocada() {
 		return alocada;
 	}
+	
+	public boolean contemPreRequisito(Disciplina disc){
+		return preRequisitos.contains(disc);
+	}
 
 	/**
 	 * aloca um disciplina ou desaloca uma disciplina conforme valor passado por parâmetro,
@@ -85,5 +89,13 @@ public class Disciplina{
 	public String toString() {
 		return "Disciplina [nome=" + nome + ", preRequisitos=" + preRequisitos
 				+ ", creditos=" + creditos + ", periodo=" + periodo + "]";
+	}
+	
+	public boolean equals(Object obj){
+		if(!(obj instanceof Disciplina)){
+			return false;
+		}
+		Disciplina disc = (Disciplina)obj;
+		return this.getNome().equals(disc.getNome());
 	}
 }

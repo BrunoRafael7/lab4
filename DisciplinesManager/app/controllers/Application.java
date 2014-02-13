@@ -1,6 +1,6 @@
 package controllers;
 
-import models.MaximoDeCreditosExcedidoException;
+import models.LimiteDeCreditosException;
 import models.PlanoDeCurso;
 import models.PreRequisitosException;
 import play.mvc.Controller;
@@ -12,6 +12,7 @@ import play.mvc.Result;
 public class Application extends Controller{
 	
 	private static PlanoDeCurso planoDeCurso = new PlanoDeCurso();
+	private static String MESSAGE_OK = "ok";
 	
 	public static Result index(){
 		return ok(views.html.index.render(planoDeCurso));
@@ -21,14 +22,33 @@ public class Application extends Controller{
 		return ok(String.valueOf(planoDeCurso.MAXIMO_DE_CREDITOS_POR_PERIODO));
 	}
 	
-	public static Result alocarDisciplina(String nome, Integer periodo) throws PreRequisitosException, MaximoDeCreditosExcedidoException{
-		planoDeCurso.alocaDisciplina(nome, periodo);
-		return ok("alocado");
+	public static Result alocarDisciplina(String nome, Integer periodo){
+		try {
+			planoDeCurso.alocaDisciplina(nome, periodo);
+		} catch (PreRequisitosException e) {
+			return created(e.getMessage());
+		} catch (LimiteDeCreditosException e) {
+			return created(e.getMessage());
+		}
+		//mudar
+		return ok(MESSAGE_OK + ", alocado");
 	}
 	
 	public static Result desalocarDisciplina(String nome, Integer periodo){
-		planoDeCurso.desalocaDisciplina(nome, periodo);
-		return ok("desalocado");
+		try {
+			planoDeCurso.desalocaDisciplina(nome, periodo);
+		} catch (PreRequisitosException e) {
+			return created(e.getMessage());
+		} catch (LimiteDeCreditosException e) {
+			return created(e.getMessage());
+		}
+		//mudar
+		return ok(MESSAGE_OK + ", desalocado");
+	}
+	
+	//método para verificação  
+	public static Result preRequisitosEstaoAlocados(String disciplina){
+		return ok();
 	}
 	
 //	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){

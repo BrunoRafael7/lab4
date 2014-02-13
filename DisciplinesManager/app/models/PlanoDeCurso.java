@@ -107,22 +107,18 @@ public class PlanoDeCurso {
 	 *            para alocar disciplina
 	 * @throws MaximoDeCreditosExcedidoException 
 	 */
-	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException, MaximoDeCreditosExcedidoException {
-		if (periodo != PRIMEIRO_PERIODO) {
-			Periodo p = periodos.get(periodo - 1);
-			Disciplina d = gradeCurricular.get(disciplina);
-			if (d.getPeriodo() != PRIMEIRO_PERIODO) {
-				if(p.getTotalDeCreditos() < MAXIMO_DE_CREDITOS_POR_PERIODO){
-					d.setAlocada(true);
-					p.add(d);
-				}else{
-					throw new MaximoDeCreditosExcedidoException("Limite de créditos atingido.");
-				}
-			}else{
-				throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
-			}
-		}else{
+	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
+		}
+		
+		Periodo p = periodos.get(periodo - 1);
+		Disciplina d = gradeCurricular.get(disciplina);
+		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
+			d.setAlocada(true);
+			p.add(d);
+		}else{
+			throw new LimiteDeCreditosException("Limite de créditos atingido.");
 		}
 	}
 
@@ -131,19 +127,34 @@ public class PlanoDeCurso {
 	 * @param nome da disciplina a ser desalocada
 	 * @param periodo que a discplina a ser desalocada esta
 	 * @return true se desalocou, se não, return false
+	 * @throws PreRequisitosException 
+	 * @throws LimiteDeCreditosException 
 	 */
-	public boolean desalocaDisciplina(String nome, Integer periodo) {
-		boolean desalocou = false;
-		if (periodo != PRIMEIRO_PERIODO) {
-			Periodo p = periodos.get(periodo - 1);
+	public void desalocaDisciplina(String nome, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+		if(periodo == PRIMEIRO_PERIODO){
+			throw new PreRequisitosException("Não deve desalocar disciplinas do primeiro período.");
+		}
+		Periodo p = periodos.get(periodo - 1);
+		if(p.getTotalDeCreditos() >= MINIMO_DE_CREDITOS_POR_PERIODO){
 			Disciplina d = gradeCurricular.get(nome);
-			
-			if(d.getPeriodo() != PRIMEIRO_PERIODO){
-				d.setAlocada(false);
-				p.remove(d);
-				desalocou = true;
+			d.setAlocada(false);
+			removeDisciplinasDependentes(d);
+			p.remove(d);
+		}else{
+			throw new LimiteDeCreditosException("Mínimo de créditos não atingido");
+		}
+	}
+
+	private String removeDisciplinasDependentes(Disciplina disciplina) {
+		String nomesDasDisciplinasRemovidas = "";
+		for(Periodo periodo : periodos){
+			for(Disciplina disc : periodo.getDisciplinas()){
+				if(disc.contemPreRequisito(disciplina)){
+					nomesDasDisciplinasRemovidas += disc.getNome() + "/";
+					periodo.remove(disc);
+				}
 			}
 		}
-		return desalocou;
+		return nomesDasDisciplinasRemovidas;
 	}
 }
