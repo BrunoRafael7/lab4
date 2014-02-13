@@ -22,7 +22,7 @@ public class Application extends Controller{
 	public static Result alocarDisciplina(String nome, Integer periodo){
 		System.out.println(nome);
 		System.out.println(periodo);
-		//planoDeCurso.alocaDisciplina(nome, periodo);
+		planoDeCurso.alocaDisciplina(nome, periodo);
 		return ok("ok");
 	}
 	
