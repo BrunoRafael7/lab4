@@ -28,6 +28,9 @@ public class PlanoDeCurso {
 		 * planoDeCurso é composta de Periodos
 		 */
 		periodos.add(new Periodo(gradeCurricular.getDisciplinasDoPeriodo(1)));
+		for(int i = 1 ; i < 8 ; i++){
+			periodos.add(new Periodo());
+		}
 	}
 	
 	/**
