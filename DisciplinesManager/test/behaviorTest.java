@@ -115,6 +115,22 @@ public class BehaviorTest {
 	}
 	
 	@Test
+	public void naoDeveDesalocarDisciplinaDoPrimeiroPeriodo(){
+		int PRIMEIRO_PERIODO = 1;
+		
+		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		
+		planoDeCurso.desalocaDisciplina("Programação_I", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Calculo_Diferencial_e_Integral_I", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Álgebra_Vetorial_e_Geometria_Analítica", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Leitura_e_Produção_de_Textos", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Introdução_à_Computação", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Laboratório_de_Programação_I", PRIMEIRO_PERIODO);
+
+		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+	}
+	
+	@Test
 	public void deveDesalocarDisciplina(){
 		
 	}

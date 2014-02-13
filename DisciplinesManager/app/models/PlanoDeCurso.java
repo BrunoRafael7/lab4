@@ -5,17 +5,18 @@ import java.util.List;
 
 /**
  * Classe PlanoDeCurso
+ * 
  * @author
- *
+ * 
  */
 public class PlanoDeCurso {
-//        private final int MINIMO_DE_CREDITOS = 14;
-    public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
-    public final int PRIMEIRO_PERIODO = 1;
+	// private final int MINIMO_DE_CREDITOS = 14;
+	public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
+	public final int PRIMEIRO_PERIODO = 1;
 
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
-	
+
 	/**
 	 * Construtor
 	 */
@@ -27,19 +28,20 @@ public class PlanoDeCurso {
 		 * planoDeCurso é composta de Periodos
 		 */
 		alocaDisciplinaParaOPrimeiroPeriodo();
-		for(int i = 1 ; i < 8 ; i++){
+		for (int i = 1; i < 8; i++) {
 			periodos.add(new Periodo());
 		}
 	}
-	
-	private void alocaDisciplinaParaOPrimeiroPeriodo(){
-		List<Disciplina> disciplinas = gradeCurricular.getDisciplinasDoPeriodo(1);
-		for(Disciplina disc : disciplinas){
-			disc.setAlocada(true);			
+
+	private void alocaDisciplinaParaOPrimeiroPeriodo() {
+		List<Disciplina> disciplinas = gradeCurricular
+				.getDisciplinasDoPeriodo(1);
+		for (Disciplina disc : disciplinas) {
+			disc.setAlocada(true);
 		}
 		periodos.add(new Periodo(disciplinas));
 	}
-	
+
 	/**
 	 * 
 	 * @return lista de períodos do curso
@@ -47,9 +49,10 @@ public class PlanoDeCurso {
 	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
-	
+
 	/**
 	 * Método que retorna todas as disciplinas de um determinado período
+	 * 
 	 * @param periodo
 	 * @return lista de disciplinas do período
 	 */
@@ -60,6 +63,7 @@ public class PlanoDeCurso {
 
 	/**
 	 * Método que calcula total de créditos do período
+	 * 
 	 * @param periodo
 	 * @return total de créditos de um determinado período
 	 */
@@ -75,7 +79,9 @@ public class PlanoDeCurso {
 	 * períodos e estes são compostos de disciplinas.
 	 */
 	/**
-	 * Método que procura todas as disciplinas que ainda não foram alocadas em algum período
+	 * Método que procura todas as disciplinas que ainda não foram alocadas em
+	 * algum período
+	 * 
 	 * @return lista das disciplinas não alocadas
 	 */
 	public List<Disciplina> getDisciplinasNaoAlocadas() {
@@ -90,26 +96,41 @@ public class PlanoDeCurso {
 
 	/**
 	 * Método que aloca disciplina em um determinado periodo
-	 * @param disciplina a ser alocada
-	 * @param periodo para alocar disciplina
+	 * 
+	 * @param disciplina
+	 *            a ser alocada
+	 * @param periodo
+	 *            para alocar disciplina
 	 */
 	public void alocaDisciplina(String disciplina, Integer periodo) {
-		if(periodo != PRIMEIRO_PERIODO){
-			Periodo p = periodos.get(periodo-1);
+		if (periodo != PRIMEIRO_PERIODO) {
+			Periodo p = periodos.get(periodo - 1);
 			Disciplina d = gradeCurricular.get(disciplina);
-			if(d.getPeriodo() != PRIMEIRO_PERIODO){
+			if (d.getPeriodo() != PRIMEIRO_PERIODO) {
 				d.setAlocada(true);
 				p.add(d);
 			}
 		}
 	}
-	
-	//MODIFICAR TRATAMENTO DE ERROS
+
+	/**
+	 * Método que desaloca disciplina em um determinado periodo
+	 * @param nome da disciplina a ser desalocada
+	 * @param periodo que a discplina a ser desalocada esta
+	 * @return true se desalocou, se não, return false
+	 */
 	public boolean desalocaDisciplina(String nome, Integer periodo) {
-		Periodo p = periodos.get(periodo-1);
-		Disciplina d = gradeCurricular.get(nome);
-		d.setAlocada(false);
-		p.remove(d);
-		return true;
+		boolean desalocou = false;
+		if (periodo != PRIMEIRO_PERIODO) {
+			Periodo p = periodos.get(periodo - 1);
+			Disciplina d = gradeCurricular.get(nome);
+			
+			if(d.getPeriodo() != PRIMEIRO_PERIODO){
+				d.setAlocada(false);
+				p.remove(d);
+				desalocou = true;
+			}
+		}
+		return desalocou;
 	}
 }
