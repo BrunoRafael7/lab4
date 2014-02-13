@@ -13,34 +13,49 @@ $(function(){
 	});
 });
 
+//REFATORAR
 function connectToLists(){
 	$('#colunasDeDisciplinas .sortable-list').sortable({
 			connectWith: '#colunasDeDisciplinas .sortable-list',
 			stop :  function (ev, ui) {
-			alert(1);
 				calculaTotalDeCreditosDoPeriodoAtual();
 				var nomeDaDisciplina = new String(ui.item.children("nome").html());
-				if(ui.item.hasClass("descricaoDeDisciplinaAlocada")){
-	              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || periodoAtual == 1) {
-	              		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
+				if(periodoAtual != 1){
+					if(ui.item.hasClass("descricaoDeDisciplinaAlocada")){
+		              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo )) {
+		              		_cancelSortable();
+		                }else{
+		                	_updateTotalDeCreditos();
+		                	alocaDisciplina(nomeDaDisciplina, periodoAtual);
+		                }
 	                }else{
-	                	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
-	                	alocaDisciplina(nomeDaDisciplina, periodoAtual);
+	                		_updateTotalDeCreditos();
+	                		desalocaDisciplina(nomeDaDisciplina, periodoAtual);
 	                }
                 }else{
-                		desalocaDisciplina(nomeDaDisciplina, periodoAtual);
+                	_cancelSortable();
                 }
             },
 			receive : function(ev, ui){
-			alert(2);
-				if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
-					ui.item.attr('class','descricaoDeDisciplinaAlocada');
-				}else{
-					ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
+				if ( periodoAtual != 1) {
+					if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
+						ui.item.attr('class','descricaoDeDisciplinaAlocada');
+					}else{
+						ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
+					}
 				}
 			}
 				
 		}).disableSelection();
+}
+
+function _cancelSortable(){
+//$( '#listaDeDisciplinasNaoAlocadas' ).sortable( 'cancel' );
+  $( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
+}
+
+function _updateTotalDeCreditos(){
+	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
 }
 
 function desalocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){

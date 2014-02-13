@@ -20,15 +20,13 @@ public class Application extends Controller{
 	}
 	
 	public static Result alocarDisciplina(String nome, Integer periodo){
-		System.out.println(nome);
-		System.out.println(periodo);
 		planoDeCurso.alocaDisciplina(nome, periodo);
-		return ok("ok");
+		return ok("alocado");
 	}
 	
 	public static Result desalocarDisciplina(String nome, Integer periodo){
 		planoDeCurso.desalocaDisciplina(nome, periodo);
-		return ok("OK");
+		return ok("desalocado");
 	}
 	
 //	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){
