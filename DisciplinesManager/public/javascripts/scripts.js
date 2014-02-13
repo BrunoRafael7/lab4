@@ -17,20 +17,44 @@ function connectToLists(){
 	$('#colunasDeDisciplinas .sortable-list').sortable({
 			connectWith: '#colunasDeDisciplinas .sortable-list',
 			stop :  function (ev, ui) {
+			alert(1);
 				calculaTotalDeCreditosDoPeriodoAtual();
-              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || periodoAtual == 1) {
-              		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
+				var nomeDaDisciplina = new String(ui.item.children("nome").html());
+				if(ui.item.hasClass("descricaoDeDisciplinaAlocada")){
+	              	if ( (totalDeCreditosAtual > maximoDeCreditosPorPeriodo ) || periodoAtual == 1) {
+	              		$( '#colunasDeDisciplinas .sortable-list' ).sortable( 'cancel' );
+	                }else{
+	                	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
+	                	alocaDisciplina(nomeDaDisciplina, periodoAtual);
+	                }
                 }else{
-                	var nomeDaDisciplina = new String(ui.item.children("nome").html());
-                	$("#periodoAtual totalDeCreditos").html(totalDeCreditosAtual);
-                	alocaDisciplina(nomeDaDisciplina, periodoAtual);
+                		desalocaDisciplina(nomeDaDisciplina, periodoAtual);
                 }
-            }	
+            },
+			receive : function(ev, ui){
+			alert(2);
+				if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
+					ui.item.attr('class','descricaoDeDisciplinaAlocada');
+				}else{
+					ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
+				}
+			}
+				
 		}).disableSelection();
 }
 
+function desalocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){
+	var url = "/DisciplinesManager/"+ nomeDaDisciplina + "/" + periodoDaDisciplina + "/desalocaDisciplina";
+       
+	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
+		function(result){
+		  alert(result);	
+		}
+	);
+}
+
 function alocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){
-	var url = "/DisciplinesManager/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
+	var url = "/DisciplinesManager/"+ nomeDaDisciplina + "/" + periodoDaDisciplina + "/alocaDisciplina";
        
 	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
 		function(result){

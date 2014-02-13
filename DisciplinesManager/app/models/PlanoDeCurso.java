@@ -88,11 +88,23 @@ public class PlanoDeCurso {
 		}
 		return disciplinasNaoAlocadas;
 	}
-
-	public void alocaDisciplina(String disciplina, int periodo) {
+	
+	//MODIFICAR TRATAMENTO DE ERROS
+	public boolean alocaDisciplina(String disciplina, Integer periodo) {
+		
 		Periodo p = periodos.get(periodo-1);
 		Disciplina d = gradeCurricular.get(disciplina);
 		d.setAlocada(true);
 		p.add(d);
+		
+		return true;
+	}
+	//MODIFICAR TRATAMENTO DE ERROS
+	public boolean desalocaDisciplina(String nome, Integer periodo) {
+		Periodo p = periodos.get(periodo-1);
+		Disciplina d = gradeCurricular.get(nome);
+		d.setAlocada(false);
+		p.remove(d);
+		return true;
 	}
 }

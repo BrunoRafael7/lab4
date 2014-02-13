@@ -40,7 +40,7 @@
 					 <titulo>1º Período</titulo>
 				    	   <ul id="list1" class="sortable-list">
 					                @for(disciplina <- planoDeCurso.getDisciplinasDoPeriodo(1)){
-					                    <li class="descricaoDeDisciplina">
+					                    <li class="descricaoDeDisciplinaAlocada">
 						                     <nome>@disciplina.getNome()</nome>
 						                     <descricaoDeDisciplina>@disciplina.getCreditos()</descricaoDeDisciplina><text> créditos</text>
 						                </li>
@@ -53,7 +53,7 @@
 					<titulo>Disciplinas não alocadas</titulo>
 						<ul id="notAlocatedList" class="sortable-list">
 							@for(disc <- planoDeCurso.getDisciplinasNaoAlocadas()){
-								 <li class="descricaoDeDisciplina">
+								 <li class="descricaoDeDisciplinaNaoAlocada">
 				                       <nome>@disc.getNome()</nome>
 				                       <descricaoDeDisciplina>@disc.getCreditos()</descricaoDeDisciplina><text> créditos</text>
 				                 </li>
