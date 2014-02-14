@@ -46,11 +46,6 @@ public class Application extends Controller{
 		return ok(MESSAGE_OK + ", desalocado");
 	}
 	
-	//método para verificação  
-	public static Result preRequisitosEstaoAlocados(String disciplina){
-		return ok();
-	}
-	
 //	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){
 //		for(Disciplina disc : planoDeCurso.getDisciplinasNaoAlocadas()){
 //			if(disc.getNome().equals(disciplina)){

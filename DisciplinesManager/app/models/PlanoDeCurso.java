@@ -114,6 +114,8 @@ public class PlanoDeCurso {
 		
 		Periodo p = periodos.get(periodo - 1);
 		Disciplina d = gradeCurricular.get(disciplina);
+		System.out.println(periodo + " p");
+		System.out.println("total de creditos " + p.getTotalDeCreditos());
 		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
 			if(d.getPeriodo() != PRIMEIRO_PERIODO){
 				d.setAlocada(true);
