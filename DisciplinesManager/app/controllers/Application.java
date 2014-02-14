@@ -46,15 +46,9 @@ public class Application extends Controller{
 		return ok(MESSAGE_OK + ", desalocado");
 	}
 	
-//	public static Result alocaDisciplinaParaOPeriodo(String disciplina, int periodo){
-//		for(Disciplina disc : planoDeCurso.getDisciplinasNaoAlocadas()){
-//			if(disc.getNome().equals(disciplina)){
-//				disc.setAlocada(true);
-//				planoDeCurso.adicionaDisciplinaAPeriodo(disc, periodo);;
-//				break;
-//			}
-//		}
-//		return redirect(routes.Application.index());
-//	}
+	public static Result refresh(){
+		planoDeCurso.refresh();
+		return ok();
+	}
 	
 }

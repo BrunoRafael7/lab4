@@ -11,6 +11,7 @@ $(function(){
 	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
 		maximoDeCreditosPorPeriodo = parseInt(result);
 	});
+	$.get("/DisciplinesManager/refresh", function(result){});
 });
 
 //REFATORAR
@@ -31,9 +32,9 @@ function connectToLists(){
 	                
 	        },
 			beforeStop : function(ev, ui){
-				if(	periodoAtual != 1){
+				if(	periodoAtual != 1 ){
 					var creditosDaDisciplinaAtual = parseInt(ui.item.children("totalDeCreditosDaDisciplina").html());
-					if(creditosDaDisciplinaAtual + totalDeCreditosAtual > maximoDeCreditosPorPeriodo ){
+					if(creditosDaDisciplinaAtual + totalDeCreditosAtual > maximoDeCreditosPorPeriodo){
 						$("#listaDeDisciplinasNaoAlocadas").sortable( 'cancel' );
 					}
                 }else{
@@ -81,8 +82,7 @@ function criarDivs(){
 		conteudoDoPeriodo =	" <br></br><br><br/> " +
 							  "<titulo>" +  (i + 1)  + "º Período</titulo>" +
 				    	          "<ul id=\"list" + (i + 1) + "\" class=\"sortable-list\"></ul>"+
-				    	          "<creditos> Créditos : <totalDeCreditos></totalDeCreditos> </creditos> "
-				    	    ;
+				    	          "<creditos> Créditos : <totalDeCreditos></totalDeCreditos> </creditos> ";
 		divs[i] = conteudoDoPeriodo;
 	}
 
@@ -94,5 +94,5 @@ function alterTable(proximoPeriodo){
 	periodoAtual = proximoPeriodo;
 	connectToLists();
 	_updateTotalDeCreditos();
-	
+	var creditosDoPeriodoAtual = parseInt($("#periodoAtual totalDeCreditos").html());
 }

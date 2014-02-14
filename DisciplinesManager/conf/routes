@@ -4,6 +4,7 @@
 
 # Home page
 GET     /					         								controllers.Application.index()
+GET     /DisciplinesManager/refresh   								controllers.Application.refresh()
 GET		/DisciplinesManager/maximoDeCreditos						controllers.Application.maximoDeCreditosPorPeriodo()
 POST 	/DisciplinesManager/alocaDisciplina/:nome/:periodo			controllers.Application.alocarDisciplina(nome:String, periodo:Int)
 POST 	/DisciplinesManager/desalocaDisciplina/:nome/:periodo		controllers.Application.desalocarDisciplina(nome:String, periodo:Int)
