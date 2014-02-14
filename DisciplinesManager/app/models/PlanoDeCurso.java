@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class PlanoDeCurso {
 	
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
+	private List<String> disciplinasAlocadas; 
 
 	/**
 	 * Construtor
@@ -24,6 +26,7 @@ public class PlanoDeCurso {
 	public PlanoDeCurso() {
 		periodos = new LinkedList<Periodo>();
 		gradeCurricular = new GradeCurricular();
+		disciplinasAlocadas = new ArrayList<String>();
 		/*
 		 * CREATOR : Classe PlanoDeCurso registra objetos do tipo Periodo pois
 		 * planoDeCurso é composta de Periodos
@@ -42,6 +45,7 @@ public class PlanoDeCurso {
 				.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO);
 		for (Disciplina disc : disciplinas) {
 			disc.setAlocada(true);
+			disciplinasAlocadas.add(disc.getNome());
 		}
 		periodos.add(new Periodo(disciplinas));
 	}
@@ -117,11 +121,12 @@ public class PlanoDeCurso {
 		System.out.println(periodo + " p");
 		System.out.println("total de creditos " + p.getTotalDeCreditos());
 		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
-			if(d.getPeriodo() != PRIMEIRO_PERIODO){
+			if(d.getPeriodo() != PRIMEIRO_PERIODO && this.isPreRequisitosEstaoSatisfeitos(d)){
 				d.setAlocada(true);
 				p.add(d);
+				disciplinasAlocadas.add(d.getNome());
 			}else{
-				throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
+				throw new PreRequisitosException("Pré-requisitos não cumpridos.");
 			}
 		}else{
 			throw new LimiteDeCreditosException("Limite de créditos atingido.");
@@ -146,6 +151,7 @@ public class PlanoDeCurso {
 			d.setAlocada(false);
 			removeDisciplinasDependentes(d);
 			p.remove(d);
+			disciplinasAlocadas.remove(d.getNome());
 		}else{
 			throw new LimiteDeCreditosException("Mínimo de créditos não atingido");
 		}
@@ -162,5 +168,9 @@ public class PlanoDeCurso {
 			}
 		}
 		return nomesDasDisciplinasRemovidas;
+	}
+	
+	public boolean isPreRequisitosEstaoSatisfeitos(Disciplina disciplina){
+		return disciplinasAlocadas.containsAll(disciplina.getPreRequisitos());
 	}
 }
