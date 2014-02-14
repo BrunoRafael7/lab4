@@ -14,7 +14,7 @@ public class GradeCurricularTest {
 
 	@Test
 	public void deveRetornarOsCreditosCorrespondentesCorretamente(){
-		assertTrue(grade.get("Calculo_Diferencial_e_Integral_I").getCreditos() == 4);	
+		assertTrue(grade.get("Cálculo_Diferencial_e_Integral_I").getCreditos() == 4);	
 		assertTrue(grade.get("Álgebra_Vetorial_e_Geometria_Analítica").getCreditos() == 4);
 		assertTrue(grade.get("Leitura_e_Produção_de_Textos").getCreditos() == 4);
 		assertTrue(grade.get("Programação_I").getCreditos() == 4);
@@ -73,7 +73,7 @@ public class GradeCurricularTest {
 	
 	@Test
 	public void deveRetornarOPeriodoCorreto(){
-		assertTrue(grade.get("Calculo_Diferencial_e_Integral_I").getPeriodo() == 1);	
+		assertTrue(grade.get("Cálculo_Diferencial_e_Integral_I").getPeriodo() == 1);	
 		assertTrue(grade.get("Álgebra_Vetorial_e_Geometria_Analítica").getPeriodo() == 1);
 		assertTrue(grade.get("Leitura_e_Produção_de_Textos").getPeriodo() == 1);
 		assertTrue(grade.get("Programação_I").getPeriodo() == 1);
@@ -129,5 +129,4 @@ public class GradeCurricularTest {
 		assertTrue(grade.get("Optativa_10").getPeriodo() == 8);
 		assertTrue(grade.get("Optativa_11").getPeriodo() == 8);
 	}
-
 }
