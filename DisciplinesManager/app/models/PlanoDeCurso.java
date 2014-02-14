@@ -115,8 +115,12 @@ public class PlanoDeCurso {
 		Periodo p = periodos.get(periodo - 1);
 		Disciplina d = gradeCurricular.get(disciplina);
 		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
-			d.setAlocada(true);
-			p.add(d);
+			if(d.getPeriodo() != PRIMEIRO_PERIODO){
+				d.setAlocada(true);
+				p.add(d);
+			}else{
+				throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
+			}
 		}else{
 			throw new LimiteDeCreditosException("Limite de créditos atingido.");
 		}
