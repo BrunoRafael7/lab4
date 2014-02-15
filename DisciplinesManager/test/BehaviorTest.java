@@ -400,7 +400,7 @@ public class BehaviorTest {
 	}
 
 	@Test
-	public void deveVerificarOsPreRequisitos() {
+	public void deveVerificarPreRequisitosEstaoAlocados() {
 		GradeCurricular grade = new GradeCurricular();
 		Disciplina p2 = grade.get("Programação_II");
 		Disciplina c2 = grade.get("Cálculo_Diferencial_e_Integral_II");
@@ -411,14 +411,33 @@ public class BehaviorTest {
 		Disciplina optativa1 = grade.get("Optativa_1");
 		Disciplina proj1 = grade.get("Projeto_em_Computação_I");
 		
-		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(p2));
-		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(c2));
-		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(tc));
-		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(md));
-		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(infosoc));
-		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(msn));
-		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(optativa1));
-		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(proj1));		
+		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(p2, 2));
+		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(c2, 2));
+		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(tc,2));
+		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(md,2));
+		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(infosoc, 2));
+		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(msn, 2));
+		Assert.assertTrue(planoDeCurso.isPreRequisitosEstaoSatisfeitos(optativa1, 2));
+		Assert.assertFalse(planoDeCurso.isPreRequisitosEstaoSatisfeitos(proj1, 2));		
+	}
+	
+	@Test
+	public void deveAddDisciplinaSomenteSePreRequisitoEstiverAlocado() throws PreRequisitosException, LimiteDeCreditosException{
+		int SEGUNDO_PERIODO = 2;
+		
+		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
+		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
+		Assert.assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		
+		try{
+			planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", SEGUNDO_PERIODO);
+		}catch(PreRequisitosException e){
+			e.getMessage();
+		}
+		Assert.assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 	}
 
 	@Test

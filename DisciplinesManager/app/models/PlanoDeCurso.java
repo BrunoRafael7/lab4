@@ -18,7 +18,8 @@ public class PlanoDeCurso {
 	
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
-	private List<String> disciplinasAlocadas; 
+	private List<String> disciplinasAlocadas;
+	private List<Integer> periodosAlocados;
 
 	/**
 	 * Construtor
@@ -27,6 +28,7 @@ public class PlanoDeCurso {
 		periodos = new LinkedList<Periodo>();
 		gradeCurricular = new GradeCurricular();
 		disciplinasAlocadas = new ArrayList<String>();
+		periodosAlocados = new ArrayList<Integer>();
 		/*
 		 * CREATOR : Classe PlanoDeCurso registra objetos do tipo Periodo pois
 		 * planoDeCurso é composta de Periodos
@@ -46,6 +48,7 @@ public class PlanoDeCurso {
 		for (Disciplina disc : disciplinas) {
 			disc.setAlocada(true);
 			disciplinasAlocadas.add(disc.getNome());
+			periodosAlocados.add(PRIMEIRO_PERIODO);
 		}
 		periodos.add(new Periodo(disciplinas));
 	}
@@ -118,13 +121,12 @@ public class PlanoDeCurso {
 		
 		Periodo p = periodos.get(periodo - 1);
 		Disciplina d = gradeCurricular.get(disciplina);
-		System.out.println(periodo + " p");
-		System.out.println("total de creditos " + p.getTotalDeCreditos());
 		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
-			if(d.getPeriodo() != PRIMEIRO_PERIODO && this.isPreRequisitosEstaoSatisfeitos(d)){
+			if(d.getPeriodo() != PRIMEIRO_PERIODO && this.isPreRequisitosEstaoSatisfeitos(d,periodo)){
 				d.setAlocada(true);
 				p.add(d);
 				disciplinasAlocadas.add(d.getNome());
+				periodosAlocados.add(periodo);
 			}else{
 				throw new PreRequisitosException("Pré-requisitos não cumpridos.");
 			}
@@ -151,6 +153,7 @@ public class PlanoDeCurso {
 			d.setAlocada(false);
 			removeDisciplinasDependentes(d);
 			p.remove(d);
+			periodosAlocados.remove(disciplinasAlocadas.indexOf(d.getNome()));
 			disciplinasAlocadas.remove(d.getNome());
 		}else{
 			throw new LimiteDeCreditosException("Mínimo de créditos não atingido");
@@ -170,7 +173,17 @@ public class PlanoDeCurso {
 		return nomesDasDisciplinasRemovidas;
 	}
 	
-	public boolean isPreRequisitosEstaoSatisfeitos(Disciplina disciplina){
-		return disciplinasAlocadas.containsAll(disciplina.getPreRequisitos());
+	public boolean isPreRequisitosEstaoSatisfeitos(Disciplina disciplina, int periodo){
+		boolean periodoOk = false;
+		// olhar se os pre-requisitos foram alocados em periodos anteriores ao que a disciplina vai ser alocada
+		for (int i = 0; i <disciplinasAlocadas.size(); i++){
+			if(disciplina.getPreRequisitos().contains(disciplinasAlocadas.get(i))){
+				periodoOk = periodosAlocados.get(i) <periodo;
+			}
+		}
+		//caso não tenha pre requisitos pode ser alocada a qualquer periodo menos no primeiro
+		if(disciplina.getPreRequisitos().isEmpty())
+			periodoOk = true;
+		return disciplinasAlocadas.containsAll(disciplina.getPreRequisitos()) && periodoOk;
 	}
 }
