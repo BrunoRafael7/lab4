@@ -130,6 +130,7 @@ public class PlanoDeCurso {
 			}else{
 				throw new PreRequisitosException("Pré-requisitos não cumpridos.");
 			}
+
 		}else{
 			throw new LimiteDeCreditosException("Limite de créditos atingido.");
 		}
@@ -143,7 +144,7 @@ public class PlanoDeCurso {
 	 * @throws PreRequisitosException 
 	 * @throws LimiteDeCreditosException 
 	 */
-	public void desalocaDisciplina(String nome, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+	public String desalocaDisciplina(String nome, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
 		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException("Não deve desalocar disciplinas do primeiro período.");
 		}
@@ -158,6 +159,12 @@ public class PlanoDeCurso {
 		}else{
 			throw new LimiteDeCreditosException("Mínimo de créditos não atingido");
 		}
+		Disciplina d = gradeCurricular.get(nome);
+		d.setAlocada(false);
+		p.remove(d);
+		return removeDisciplinasDependentes(d);
+
+
 	}
 
 	private String removeDisciplinasDependentes(Disciplina disciplina) {
@@ -171,6 +178,12 @@ public class PlanoDeCurso {
 			}
 		}
 		return nomesDasDisciplinasRemovidas;
+	}
+
+	public void refresh() {
+		for(int i = 1 ; i < periodos.size() ; i++){
+			periodos.remove(i);
+		}
 	}
 	
 	public boolean isPreRequisitosEstaoSatisfeitos(Disciplina disciplina, int periodo){
