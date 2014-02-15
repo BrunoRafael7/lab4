@@ -69,11 +69,16 @@ public class Disciplina{
 	public boolean isAlocada() {
 		return alocada;
 	}
-	
+
+	/**
+	 * Verifica se a disciplina está nos pré requisitos
+	 * @param disciplina a ser verificada
+	 * @return true se conter pre requisito, se não, return false
+	 */
 	public boolean contemPreRequisito(Disciplina disc){
 		return preRequisitos.contains(disc);
 	}
-
+	
 	/**
 	 * aloca um disciplina ou desaloca uma disciplina conforme valor passado por parâmetro,
 	 * sendo true para alocada e false para desalocada
@@ -91,6 +96,10 @@ public class Disciplina{
 				+ ", creditos=" + creditos + ", periodo=" + periodo + "]";
 	}
 	
+	/**
+	 * Duas disciplinas são iguais se forem da mesma instancia e se tiverem o mesmo nome
+	 * return true se forem iguais, se não, return false
+	 */
 	public boolean equals(Object obj){
 		if(!(obj instanceof Disciplina)){
 			return false;
