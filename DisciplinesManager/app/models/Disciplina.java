@@ -13,7 +13,6 @@ public class Disciplina{
 	private List<String> preRequisitos;
 	private int creditos;
 	private int periodo;
-	private boolean alocada;
 	
 	/**
 	 * Construtor
@@ -27,7 +26,6 @@ public class Disciplina{
 		this.preRequisitos = preRequisitos;
 		this.creditos = creditos;
 		this.periodo = periodo;
-		this.alocada = false;
 	}
 	
 	/**
@@ -62,26 +60,10 @@ public class Disciplina{
 		return periodo;
 	}
 	
-	/**
-	 * 
-	 * @return true se a disciplina já estiver alocada em algum período, se não, return false
-	 */
-	public boolean isAlocada() {
-		return alocada;
-	}
-	
 	public boolean contemPreRequisito(Disciplina disc){
 		return preRequisitos.contains(disc);
 	}
 
-	/**
-	 * aloca um disciplina ou desaloca uma disciplina conforme valor passado por parâmetro,
-	 * sendo true para alocada e false para desalocada
-	 */
-	public void setAlocada(boolean alocada) {
-		this.alocada = alocada;
-	}
-	
 	/**
 	 * return uma String dos dados da disciplina
 	 */

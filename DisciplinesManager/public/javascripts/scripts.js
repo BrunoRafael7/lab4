@@ -2,6 +2,7 @@ var divs = new Array();
 var totalDeCreditosAtual;
 var periodoAtual = 1;
 var maximoDeCreditosPorPeriodo;
+var messageOk;
 
 $(function(){
 	criarDivs();
@@ -12,6 +13,9 @@ $(function(){
 		maximoDeCreditosPorPeriodo = parseInt(result);
 	});
 	$.get("/DisciplinesManager/refresh", function(result){});
+	$.get("/DisciplinesManager/getMessageOk", function(result){
+		messageOk = result;
+	});
 });
 
 //REFATORAR
@@ -19,49 +23,48 @@ function connectToLists(){
 	var listSortable = $('#colunasDeDisciplinas .sortable-list');
 	listSortable.sortable({
 			connectWith: '#colunasDeDisciplinas .sortable-list',
-			receive :  function (ev, ui) {
-					var nomeDaDisciplina = new String(ui.item.children("nome").html());
-		            if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
-						ui.item.attr('class','descricaoDeDisciplinaAlocada');
-						alocaDisciplina(nomeDaDisciplina, periodoAtual);
-					}else{
-						desalocaDisciplina(nomeDaDisciplina, periodoAtual);
-						ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
-					}
-		            _updateTotalDeCreditos();
-	                
-	        },
-			beforeStop : function(ev, ui){
-				if(	periodoAtual != 1 ){
-					var creditosDaDisciplinaAtual = parseInt(ui.item.children("totalDeCreditosDaDisciplina").html());
-					if(creditosDaDisciplinaAtual + totalDeCreditosAtual > maximoDeCreditosPorPeriodo){
-						$("#listaDeDisciplinasNaoAlocadas").sortable( 'cancel' );
-					}
-                }else{
-                	listSortable.sortable( 'cancel' );
-                }
+
+			receive : function(ev, ui){
+				var nomeDaDisciplina = new String(ui.item.children("nome").html());
+				if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
+					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual}, 
+					function(result){
+						if(result != messageOk){
+							$("#listaDeDisciplinasNaoAlocadas").sortable( 'cancel' );
+							alert(result);
+						}else{
+							alocaDisciplina(nomeDaDisciplina, periodoAtual, ui);	
+						}
+					});
+				}else{
+					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
+					function(result){
+						desalocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
+					});
+				}
 			}
-				
 		}).disableSelection();
 }
 
-
-function desalocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){
-	var url = "/DisciplinesManager/desalocaDisciplina/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
-       
+function alocaDisciplina(nomeDaDisciplina, periodoDaDisciplina, ui){
+	var url = "/DisciplinesManager/alocaDisciplina/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
 	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
 		function(result){
-		  alert(result);	
+		  alert(result + ", alocada");
+		  ui.item.attr('class','descricaoDeDisciplinaAlocada');
+		  _updateTotalDeCreditos();	
 		}
 	);
 }
 
-function alocaDisciplina(nomeDaDisciplina, periodoDaDisciplina){
-	var url = "/DisciplinesManager/alocaDisciplina/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
+function desalocaDisciplina(nomeDaDisciplina, periodoDaDisciplina, ui){
+	var url = "/DisciplinesManager/desalocaDisciplina/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
        
 	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
 		function(result){
-		  alert(result);	
+		  alert(result + ", desalocada");
+		  ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
+		  _updateTotalDeCreditos();
 		}
 	);
 }

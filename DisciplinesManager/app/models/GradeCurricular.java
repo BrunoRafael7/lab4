@@ -33,7 +33,7 @@ public class GradeCurricular {
 	 * Mapeia nome da disciplina(String) : Disciplina (Disciplina)
 	 * @param listaDeDisciplinas
 	 */
-	private void addDisciplinas(List<Disciplina> listaDeDisciplinas) {
+	public void addDisciplinas(List<Disciplina> listaDeDisciplinas) {
 		for(Disciplina dsp : listaDeDisciplinas){
 			disciplinas.put(dsp.getNome(), dsp);
 		}

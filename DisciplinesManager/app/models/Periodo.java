@@ -70,4 +70,8 @@ public class Periodo {
 	public int getTotalDeCreditos() {
 		return totalDeCreditos;
 	}
+	
+	public boolean contains(Disciplina disciplina){
+		return disciplinas.contains(disciplina);
+	}
 }

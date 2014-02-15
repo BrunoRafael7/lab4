@@ -44,7 +44,6 @@ public class PlanoDeCurso {
 		List<Disciplina> disciplinas = gradeCurricular
 				.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO);
 		for (Disciplina disc : disciplinas) {
-			disc.setAlocada(true);
 			disciplinasAlocadas.add(disc.getNome());
 		}
 		periodos.add(new Periodo(disciplinas));
@@ -95,7 +94,7 @@ public class PlanoDeCurso {
 	public List<Disciplina> getDisciplinasNaoAlocadas() {
 		List<Disciplina> disciplinasNaoAlocadas = new LinkedList<Disciplina>();
 		for (Disciplina disc : gradeCurricular.todasAsDisciplinas()) {
-			if (!disc.isAlocada()) {
+			if (!disciplinasNaoAlocadas.contains(disc)) {
 				disciplinasNaoAlocadas.add(disc);
 			}
 		}
@@ -111,26 +110,14 @@ public class PlanoDeCurso {
 	 *            para alocar disciplina
 	 * @throws MaximoDeCreditosExcedidoException 
 	 */
-	public void alocaDisciplina(String disciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
-		if(periodo == PRIMEIRO_PERIODO){
-			throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
-		}
-		
-		Periodo p = periodos.get(periodo - 1);
-		Disciplina d = gradeCurricular.get(disciplina);
-		if(p.getTotalDeCreditos() <= MAXIMO_DE_CREDITOS_POR_PERIODO){
-			if(d.getPeriodo() != PRIMEIRO_PERIODO && this.isPreRequisitosEstaoSatisfeitos(d)){
-				d.setAlocada(true);
-				p.add(d);
-				disciplinasAlocadas.add(d.getNome());
-			}else{
-				throw new PreRequisitosException("Pré-requisitos não cumpridos.");
-			}
-
-		}else{
-			throw new LimiteDeCreditosException("Limite de créditos atingido.");
-		}
+	public void alocaDisciplina(String nomeDaDisciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+			Periodo p = periodos.get(periodo - 1);
+			Disciplina disc = gradeCurricular.get(nomeDaDisciplina);
+			p.add(disc);
+			disciplinasAlocadas.add(disc.getNome());
+			System.out.println(disc.getNome());
 	}
+	
 
 	/**
 	 * Método que desaloca disciplina em um determinado periodo
@@ -140,16 +127,16 @@ public class PlanoDeCurso {
 	 * @throws PreRequisitosException 
 	 * @throws LimiteDeCreditosException 
 	 */
-	public String desalocaDisciplina(String nome, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
-		if(periodo == PRIMEIRO_PERIODO){
-			throw new PreRequisitosException("Não deve desalocar disciplinas do primeiro período.");
-		}
+	public String desalocaDisciplina(String nomeDaDisciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+			
 		Periodo p = periodos.get(periodo - 1);
-		Disciplina d = gradeCurricular.get(nome);
-		d.setAlocada(false);
+		Disciplina d = gradeCurricular.get(nomeDaDisciplina);
 		p.remove(d);
-		return removeDisciplinasDependentes(d);
-
+		disciplinasAlocadas.remove(d);
+		String disciplinasRemovidas = removeDisciplinasDependentes(d);
+		
+		return disciplinasRemovidas;
+		
 	}
 
 	private String removeDisciplinasDependentes(Disciplina disciplina) {
@@ -167,11 +154,64 @@ public class PlanoDeCurso {
 
 	public void refresh() {
 		for(int i = 1 ; i < periodos.size() ; i++){
-			periodos.remove(i);
+			List<Disciplina> disciplinas = periodos.get(i).getDisciplinas();
+			disciplinasAlocadas.removeAll(disciplinas);
+			gradeCurricular.addDisciplinas(disciplinas);
+			periodos.set(i, new Periodo());
 		}
 	}
 	
-	public boolean isPreRequisitosEstaoSatisfeitos(Disciplina disciplina){
-		return disciplinasAlocadas.containsAll(disciplina.getPreRequisitos());
+	public void verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
+		if(periodo == PRIMEIRO_PERIODO){
+			throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
+		}
+		
+		Periodo periodoAtual = periodos.get(periodo - 1);
+		Periodo periodoAnterior = periodos.get(periodo - 2);
+		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
+		
+		if( (periodoAtual.getTotalDeCreditos() + disciplina.getCreditos() ) > MAXIMO_DE_CREDITOS_POR_PERIODO){
+			throw new LimiteDeCreditosException("Limite de créditos atingido.");
+		}
+		
+		if(!preRequisitosEstaoSatisfeitos(disciplina, periodo)){
+			throw new PreRequisitosException("Pré-requisitos não cumpridos.");
+		}
+		
+		if((periodoAnterior.getTotalDeCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
+			throw new LimiteDeCreditosException("O período anterior está com o total de créditos abaixo do permitido");
+		}
+		
+	}
+	
+	public void verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException{
+		if(periodo == PRIMEIRO_PERIODO){
+			throw new PreRequisitosException("Não deve alocar disciplinas do primeiro período.");
+		}
+		
+		Periodo p = periodos.get(periodo-1);
+		Disciplina disc = gradeCurricular.get(nomeDaDisciplina);
+		
+		if((p.getTotalDeCreditos() - disc.getCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
+			throw new LimiteDeCreditosException("Mínimo de créditos não será atingido");
+		}
+	}
+	
+	
+	private boolean preRequisitosEstaoSatisfeitos(Disciplina disciplina, int periodo) {
+		List<String> preRequisitos = disciplina.getPreRequisitos();
+		return disciplinasAlocadas.containsAll(preRequisitos) &&
+				asDiscicplinasEstaoAloacadasNoPeriodo(preRequisitos, periodo);
+	}
+
+	private boolean asDiscicplinasEstaoAloacadasNoPeriodo(List<String> disciplinas , int periodo){
+		for(String nome : disciplinas){
+			Periodo p = periodos.get(periodo - 1);
+			Disciplina disc = gradeCurricular.get(nome);
+			if(p.contains(disc)){
+				return false;
+			}
+		}
+		return true;
 	}
 }
