@@ -1,32 +1,40 @@
 nome {
-	color: #153e63;
+	color: #363636;
 	font-size: 15px;
 	font-weight: bold;
 }
 
-totalDeCreditos, text{
+nome, totalDeCreditosDaDisciplina{
+	position: absolute; 
+	top: 50%; 
+	left: 50%; 
+}
+
+totalDeCreditosDaDisciplina, text{
 	font-size: 12px;
+	color: #FF6A6A;
+	font-style:italic;
 }
 
 creditos {
-	color: #456A8B;
+	color: #363636;
 	font-size: 20px;
 	font-weight: bold;
 }
 titulo, diciplinas-ofertadas {
-	color: #456A8B;
+	color: #363636;
 	font-size: 20px;
 	font-weight: bold;
 }
 
 nome-principal {
-	color: #FFFFFF;
+	color: #E8E8E8;
 	font-size: 40px;
 	font-weight: bold;
 }
 
 .body-back {
-	background-color: #153e63;
+	background-color: #8B8386;
 }
 
 .wrapper {
@@ -62,7 +70,7 @@ nome-principal {
 }
 
 .coluna {
-	background-color: #d8e2eb;
+	background-color: #CDC1C5;
 	float: left;
 	height: 600px;
 	width: 600px;
@@ -75,7 +83,13 @@ nome-principal {
 #botoes{
 	margin-left:auto;
 	margin-right:auto;
-	width:60%;
+	width:79%;
+	
+}
+
+.ui-icon{
+	float:left;
+	margin:0 7px 20px 0;
 }
 
 .descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
@@ -86,7 +100,7 @@ nome-principal {
 }
 
 .disciplina, .descricaoDeDisciplinaAlocada,.descricaoDeDisciplinaNaoAlocada, .btn {
-	background-color: #FFFFFF;
+	background-color: #9FB6CD;
 	margin:auto;
 	margin-top:6px;
 	padding-top: 10px;

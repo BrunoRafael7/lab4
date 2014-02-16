@@ -1,4 +1,4 @@
-var divs = new Array();
+var divs = [];
 var totalDeCreditosAtual;
 var periodoAtual = 1;
 var maximoDeCreditosPorPeriodo;
@@ -8,11 +8,15 @@ $(function(){
 	criarDivs();
 	connectToLists();
 	_updateTotalDeCreditos();
+	updateButtonEffects();
 	totalDeCreditosAtual = parseInt($("totalDeCreditos").html());
 	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
 		maximoDeCreditosPorPeriodo = parseInt(result);
 	});
-	$.get("/DisciplinesManager/refresh", function(result){});
+	$.get("/DisciplinesManager/refresh", function(result){
+		alert("refresh");
+		
+	});
 	$.get("/DisciplinesManager/getMessageOk", function(result){
 		messageOk = result;
 	});
@@ -29,17 +33,21 @@ function connectToLists(){
 				if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
 					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual}, 
 					function(result){
-						if(result != messageOk){
-							$("#listaDeDisciplinasNaoAlocadas").sortable( 'cancel' );
-							alert(result);
+						if(result == messageOk){
+							alocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
 						}else{
-							alocaDisciplina(nomeDaDisciplina, periodoAtual, ui);	
+							$('.sortable-list').sortable( 'cancel' );
+							alert(result);	
 						}
 					});
 				}else{
 					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
 					function(result){
-						desalocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
+						if(result == messageOk){
+							desalocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
+						}else{
+							$('.sortable-list').sortable( 'cancel' );
+						}
 					});
 				}
 			}
@@ -81,12 +89,12 @@ function _updateTotalDeCreditos(){
 }
 
 function criarDivs(){
-	for(var i = 0 ; i < 8 ; i++){
+	for(var i = 0 ; i < 10 ; i++){
 		conteudoDoPeriodo =	" <br></br><br><br/> " +
 							  "<titulo>" +  (i + 1)  + "º Período</titulo>" +
 				    	          "<ul id=\"list" + (i + 1) + "\" class=\"sortable-list\"></ul>"+
 				    	          "<creditos> Créditos : <totalDeCreditos></totalDeCreditos> </creditos> ";
-		divs[i] = conteudoDoPeriodo;
+		divs.push(conteudoDoPeriodo);
 	}
 
 }
@@ -98,4 +106,38 @@ function alterTable(proximoPeriodo){
 	connectToLists();
 	_updateTotalDeCreditos();
 	var creditosDoPeriodoAtual = parseInt($("#periodoAtual totalDeCreditos").html());
+}
+
+/*
+function openDialog(){
+	 $( "#janelaDeConfirmacao" ).dialog({
+			resizable: false,
+			height:140,
+			modal: true,
+			buttons: {
+				"remover": function() {
+					$( this ).dialog( "close" );
+				 },
+			
+				Cancel: function() {
+					$( this ).dialog( "close" );
+	   			}
+	   		}
+	 });
+}
+*/
+
+function updateButtonEffects(){
+$('#colunasDeDisciplinas li').hover(function(){
+                $(this).stop().animate({"width" : 490, "height" : 50},100,function(){
+                    $(this).animate({"width" : 492, "height" : 52},100, function(){
+                        $(this).animate({"width" : 490, "height" : 50},100);
+                    });
+                });
+            }, function(){
+                $(this).stop().animate({"width" : 480, "height" : 41},100,function(){
+                    
+                });
+            });
+
 }

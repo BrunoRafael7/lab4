@@ -4,6 +4,11 @@ nome {
 	font-weight: bold;
 }
 
+nome, totalDeCreditosDaDisciplina{
+	top: 50%; 
+	left: 50%; 
+}
+
 totalDeCreditosDaDisciplina, text{
 	font-size: 12px;
 	color: #FF6A6A;
@@ -77,8 +82,13 @@ nome-principal {
 #botoes{
 	margin-left:auto;
 	margin-right:auto;
-	width:63%;
+	width:79%;
 	
+}
+
+.ui-icon{
+	float:left;
+	margin:0 7px 20px 0;
 }
 
 .descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{

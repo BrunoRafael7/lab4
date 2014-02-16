@@ -31,24 +31,23 @@ public class Application extends Controller{
 			return created(e.getMessage());
 		}
 		//mudar
-		return ok(MESSAGE_OK);
+		return getMessageOk();
 	}
 	
 	public static Result desalocarDisciplina(String nome, Integer periodo){
 		try {
 			planoDeCurso.desalocaDisciplina(nome, periodo);
-		} catch (PreRequisitosException e) {
-			return created(e.getMessage());
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		}
-		return ok(MESSAGE_OK);
+		return getMessageOk();
 	}
 	
 	public static Result verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, Integer periodo){
 		try {
 			planoDeCurso.verificaSeDisciplinaPodeSerAlocada(nomeDaDisciplina, periodo);
-			return ok(MESSAGE_OK);
+			
+			return getMessageOk();
 			
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
@@ -59,13 +58,15 @@ public class Application extends Controller{
 	
 	public static Result verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, Integer periodo){
 		try {
+			
 			planoDeCurso.verificaSeDisciplinaPodeSerDesalocada(nomeDaDisciplina, periodo);
+			
 		} catch (PreRequisitosException e) {
 			return created(e.getMessage());
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		}
-		return ok(MESSAGE_OK);
+		return getMessageOk();
 	}
 	
 	public static Result refresh(){

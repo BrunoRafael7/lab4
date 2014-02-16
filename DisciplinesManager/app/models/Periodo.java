@@ -62,6 +62,14 @@ public class Periodo {
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
+	
+	public List<String> getNomesDasDisciplinas(){
+		List<String> nomes = new LinkedList<String>();
+		for(Disciplina dsp : disciplinas){
+			nomes.add(dsp.getNome());
+		}
+		return nomes;
+	}
 
 	/**
 	 * 

@@ -7,7 +7,7 @@ import java.util.List;
  * @author
  *
  */
-public class Disciplina{
+public class Disciplina implements Comparable<Disciplina>{
 	
 	private String nome;
 	private List<String> preRequisitos;
@@ -59,11 +59,11 @@ public class Disciplina{
 	public int getPeriodo() {
 		return periodo;
 	}
-	
+
 	public boolean contemPreRequisito(Disciplina disc){
 		return preRequisitos.contains(disc);
 	}
-
+	
 	/**
 	 * return uma String dos dados da disciplina
 	 */
@@ -73,11 +73,24 @@ public class Disciplina{
 				+ ", creditos=" + creditos + ", periodo=" + periodo + "]";
 	}
 	
+	/**
+	 * Duas disciplinas são iguais se forem da mesma instancia e se tiverem o mesmo nome
+	 * return true se forem iguais, se não, return false
+	 */
+	@Override
 	public boolean equals(Object obj){
 		if(!(obj instanceof Disciplina)){
 			return false;
 		}
 		Disciplina disc = (Disciplina)obj;
 		return this.getNome().equals(disc.getNome());
+	}
+
+	@Override
+	public int compareTo(Disciplina disc) {
+		if(this.getPeriodo() >= disc.getPeriodo()){
+			return 1;
+		}
+		return -1;
 	}
 }
