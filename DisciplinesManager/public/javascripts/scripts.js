@@ -8,14 +8,14 @@ $(function(){
 	criarDivs();
 	connectToLists();
 	_updateTotalDeCreditos();
-	updateButtonEffects();
+	_updateTooltipsAndEffects();
 	totalDeCreditosAtual = parseInt($("totalDeCreditos").html());
 	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
 		maximoDeCreditosPorPeriodo = parseInt(result);
 	});
 	$.get("/DisciplinesManager/refresh", function(result){
 	});
-	$.get("/DisciplinesManager/getMessageOk", function(result){
+	$.get("/DisciplinesManager/getStatusOk", function(result){
 		messageOk = result;
 	});
 });
@@ -30,8 +30,9 @@ function connectToLists(){
 				var nomeDaDisciplina = new String(ui.item.children("nome").html());
 				if(ui.item.hasClass("descricaoDeDisciplinaNaoAlocada")){
 					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual}, 
-					function(result){
-						if(result == messageOk){
+					function(htmlPage){
+						var status = $(htmlPage).children('status').html();
+						if(status == messageOk){
 							alocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
 						}else{
 							$('.sortable-list').sortable( 'cancel' );
@@ -40,7 +41,8 @@ function connectToLists(){
 				}else{
 					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
 					function(result){
-						if(result == messageOk){
+						var status = $(htmlPage).children('status').html();
+						if(status == messageOk){
 							desalocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
 						}else{
 							$('.sortable-list').sortable( 'cancel' );
@@ -55,8 +57,9 @@ function alocaDisciplina(nomeDaDisciplina, periodoDaDisciplina, ui){
 	var url = "/DisciplinesManager/alocaDisciplina/"+ nomeDaDisciplina + "/" + periodoDaDisciplina;
 	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
 		function(result){
-		  alert(result + ", alocada");
+		  var tooltipMessage = $(result).children('message').html();
 		  ui.item.attr('class','descricaoDeDisciplinaAlocada');
+		  ui.item.attr('title',tooltipMessage);
 		  _updateTotalDeCreditos();	
 		}
 	);
@@ -67,8 +70,9 @@ function desalocaDisciplina(nomeDaDisciplina, periodoDaDisciplina, ui){
        
 	$.post(url,{"nome":nomeDaDisciplina, "periodo":periodoDaDisciplina}, 
 		function(result){
-		  alert(result + ", desalocada");
+		  var tooltipMessage = $(result).children('message').html();
 		  ui.item.attr('class','descricaoDeDisciplinaNaoAlocada');
+		   ui.item.attr('title',tooltipMessage);
 		  _updateTotalDeCreditos();
 		}
 	);
@@ -102,12 +106,12 @@ function alterTable(proximoPeriodo){
 	periodoAtual = proximoPeriodo;
 	connectToLists();
 	_updateTotalDeCreditos();
-	updateButtonEffects();
+	_updateTooltipsAndEffects();
 }
 
 /*
 function openDialog(component){
-	 $( "#janelaDeConfirmacao" ).dialog({
+	 $( "#janelDeConfirmacao" ).dialog({
 			resizable: false,
 			height:140,
 			modal: true,
@@ -124,13 +128,8 @@ function openDialog(component){
 }
 */
 
-function updateButtonEffects(){
-	_updateListaDeDisciplinasNaoAlocadas();
-	_updateListaDeDisciplinasAlocadas();
-}
-
-function _updateListaDeDisciplinasNaoAlocadas() {
-	$('#listaDeDisciplinasNaoAlocadas li').hover(function(){
+function _updateTooltipsAndEffects(){
+	$('#colunasDeDisciplinas li').hover(function(){
 				var disciplina = $(this);
                 disciplina.stop().animate({"width" : 490, "height" : 50},100,function(){
                     disciplina.animate({"width" : 492, "height" : 52},100, function(){
@@ -138,37 +137,24 @@ function _updateListaDeDisciplinasNaoAlocadas() {
                     });
                 });
                 var nomeDaDisciplina = new String(disciplina.children("nome").html());
-                $.get("/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
-                	function(result){
-                		disciplina.attr('title', result);
-                	}
-                );
+                if(disciplina.hasClass("descricaoDeDisciplinaNaoAlocada")){
+			   		$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
+				       	function(result){
+				       		var message = $(result).children('message').html();
+				       		disciplina.attr('title', message);
+				       	}
+			    	);
+			    }else{
+			    	$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
+				       	function(result){
+				       		var message = $(result).children('message').html();
+				       		disciplina.attr('title', message);
+				       	}
+			    	);
+			    }
 				
             }, function(){
                 $(this).stop().animate({"width" : 480, "height" : 41},100);
             });
 	
-
-}
-
-function _updateListaDeDisciplinasAlocadas(){
-	
-	$("#list" + periodoAtual + " li").hover(function(){
-				var disciplina = $(this);
-                disciplina.stop().animate({"width" : 490, "height" : 50},100,function(){
-                    disciplina.animate({"width" : 492, "height" : 52},100, function(){
-                        disciplina.animate({"width" : 490, "height" : 50},100);
-                    });
-                });
-                var nomeDaDisciplina = new String(disciplina.children("nome").html());
-                $.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
-                	function(result){
-                		disciplina.attr('title', result);
-                	}
-                );
-				
-            }, function(){
-                $(this).stop().animate({"width" : 480, "height" : 41},100);
-            });
-
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.LimiteDeCreditosException;
+import models.HTMLResult;
 import models.PlanoDeCurso;
 import models.PreRequisitosException;
 import play.mvc.Controller;
@@ -12,7 +13,6 @@ import play.mvc.Result;
 public class Application extends Controller{
 	
 	private static PlanoDeCurso planoDeCurso = new PlanoDeCurso();
-	private static String MESSAGE_OK = "ok";
 	
 	public static Result index(){
 		return ok(views.html.index.render(planoDeCurso));
@@ -31,7 +31,7 @@ public class Application extends Controller{
 			return created(e.getMessage());
 		}
 		//mudar
-		return getMessageOk();
+		return ok(HTMLResult.DISCIPLINA_PODE_SER_DESALOCADA.getMessage());
 	}
 	
 	public static Result desalocarDisciplina(String nome, Integer periodo){
@@ -40,20 +40,20 @@ public class Application extends Controller{
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		}
-		return getMessageOk();
+		return ok(HTMLResult.DISCIPLINA_PODE_SER_ALOCADA.getMessage());
 	}
 	
 	public static Result verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, Integer periodo){
 		try {
 			planoDeCurso.verificaSeDisciplinaPodeSerAlocada(nomeDaDisciplina, periodo);
 			
-			return getMessageOk();
-			
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		} catch (PreRequisitosException e) {
 			return created(e.getMessage());
 		}
+		
+		return ok(HTMLResult.DISCIPLINA_PODE_SER_ALOCADA.getMessage());
 	}
 	
 	public static Result verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, Integer periodo){
@@ -66,15 +66,15 @@ public class Application extends Controller{
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		}
-		return getMessageOk();
+		return ok(HTMLResult.DISCIPLINA_PODE_SER_DESALOCADA.getMessage());
 	}
 	
 	public static Result refresh(){
 		planoDeCurso.refresh();
-		return ok();
+		return getStatusOk();
 	}
 	
-	public static Result getMessageOk(){
-		return ok(MESSAGE_OK);
+	public static Result getStatusOk(){
+		return ok(HTMLResult.STATUS_OK.getMessage());
 	}
 }

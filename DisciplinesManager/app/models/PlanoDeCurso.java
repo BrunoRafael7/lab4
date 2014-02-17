@@ -16,10 +16,6 @@ public class PlanoDeCurso {
 	public final int MAXIMO_DE_CREDITOS_POR_PERIODO = 28;
 	public final int PRIMEIRO_PERIODO = 1;
 	public final int QUANTIDADE_DE_PERIODOS = 10;
-	public final String MSG_ERRO_1 = "Não deve alocar disciplinas do primeiro período.";
-	public final String MSG_ERRO_2 = "Limite de créditos atingido.";
-	public final String MSG_ERRO_3 = "Pré-requisitos não cumpridos.";
-	public final String MSG_ERRO_4 = "O período anterior está com o total de créditos abaixo do permitido";
 	
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
@@ -165,30 +161,30 @@ public class PlanoDeCurso {
 	
 	public void verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
 		if(periodo == PRIMEIRO_PERIODO){
-			throw new PreRequisitosException(MSG_ERRO_1);
+			throw new PreRequisitosException(HTMLResult.NAO_PODE_ALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
 		
 		Periodo periodoAtual = periodos.get(periodo - 1);
 		Periodo periodoAnterior = periodos.get(periodo - 2);
 		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
 		
-		if( (periodoAtual.getTotalDeCreditos() + disciplina.getCreditos() ) > MAXIMO_DE_CREDITOS_POR_PERIODO){
-			throw new LimiteDeCreditosException(MSG_ERRO_2);
+		if(!preRequisitosEstaoSatisfeitos(disciplina, periodo)){
+			throw new PreRequisitosException(HTMLResult.PRE_REQUISITOS_NAO_CUMPRIDOS.getMessage());
 		}
 		
-		if(!preRequisitosEstaoSatisfeitos(disciplina, periodo)){
-			throw new PreRequisitosException(MSG_ERRO_3);
+		if( (periodoAtual.getTotalDeCreditos() + disciplina.getCreditos() ) > MAXIMO_DE_CREDITOS_POR_PERIODO){
+			throw new LimiteDeCreditosException(HTMLResult.LIMITE_DE_CREDITOS.getMessage());
 		}
 		
 		if((periodoAnterior.getTotalDeCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
-			throw new LimiteDeCreditosException(MSG_ERRO_4);
+			throw new LimiteDeCreditosException(HTMLResult.PERIODO_ANTERIOR_COM_CREDITOS_MINIMOS_NAO_CUMPRIDOS.getMessage());
 		}
 		
 	}
 	
 	public void verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException{
 		if(periodo == PRIMEIRO_PERIODO){
-			throw new PreRequisitosException(MSG_ERRO_1.replace("alocar", "desalocar"));
+			throw new PreRequisitosException(HTMLResult.NAO_PODE_DESALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
 		
 //		Periodo p = periodos.get(periodo-1);
