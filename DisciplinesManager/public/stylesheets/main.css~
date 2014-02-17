@@ -5,9 +5,13 @@ nome {
 }
 
 nome, totalDeCreditosDaDisciplina{
-	position: absolute; 
 	top: 50%; 
 	left: 50%; 
+}
+
+label {
+	display: inline-block;
+	width: 5em;
 }
 
 totalDeCreditosDaDisciplina, text{
