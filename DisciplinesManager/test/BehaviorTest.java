@@ -235,36 +235,12 @@ public class BehaviorTest {
 
 		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
 
-		try {
-			planoDeCurso.desalocaDisciplina("Programação_I", PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
-		try {
-			planoDeCurso.desalocaDisciplina("Cálculo_Diferencial_e_Integral_I",	PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
-		try {
-			planoDeCurso.desalocaDisciplina("Álgebra_Vetorial_e_Geometria_Analítica", PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
-		try {
-			planoDeCurso.desalocaDisciplina("Leitura_e_Produção_de_Textos",	PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
-		try {
-			planoDeCurso.desalocaDisciplina("Introdução_à_Computação", PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
-		try {
-			planoDeCurso.desalocaDisciplina("Laboratório_de_Programação_I", PRIMEIRO_PERIODO);
-		} catch (PreRequisitosException e) {
-			e.getMessage();
-		}
+		planoDeCurso.desalocaDisciplina("Programação_I", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Cálculo_Diferencial_e_Integral_I",	PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Álgebra_Vetorial_e_Geometria_Analítica", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Leitura_e_Produção_de_Textos",	PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Introdução_à_Computação", PRIMEIRO_PERIODO);
+		planoDeCurso.desalocaDisciplina("Laboratório_de_Programação_I", PRIMEIRO_PERIODO);
 
 		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
 	}

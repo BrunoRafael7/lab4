@@ -65,11 +65,12 @@ public class ColetorDeDisciplinas {
 		String nome = line[1];
 		int creditos = Integer.parseInt(line[2]);
 		int periodo = Integer.parseInt(line[3]);
+		int dificuldade = Integer.parseInt(line[4]);
 		/*
 		 * CREATOR : ColetorDeDisciplinas será o responsável por criar Disciplinas pois 
 		 * ColetorDeDisciplinas tem as informações necessárias para a criação de uma Disciplina 
 		 */
-		return new Disciplina(preRequisitos, nome, creditos, periodo);
+		return new Disciplina(preRequisitos, nome, creditos, periodo, dificuldade);
 	}
 	
 	/**
