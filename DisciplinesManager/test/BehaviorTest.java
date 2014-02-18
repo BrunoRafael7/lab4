@@ -296,24 +296,27 @@ public class BehaviorTest {
 			
 			planoDeCurso.alocaDisciplina("Organização_e_Arquitetura_de_Computadores_I", 4);
 			planoDeCurso.alocaDisciplina("Lab_de_Organização_e_Arquitetura_de_Computadores", 4);
+			planoDeCurso.alocaDisciplina("Sistemas_de_Informação_I", QUARTO_PERIODO);
+			planoDeCurso.alocaDisciplina("Lógica_Matemática", 4);
+			planoDeCurso.alocaDisciplina("Paradigmas_de_Linguagens_de_Programação", 4);
 			
-			/*String[] comparable = {"Organização_e_Arquitetura_de_Computadores_I", 
-								   "Lab_de_Organização_e_Arquitetura_de_Computadores",
-								   "Fundamentos_de_Física_Moderna"};*/
+			planoDeCurso.alocaDisciplina("Compiladores", 5);
+			planoDeCurso.alocaDisciplina("Redes_de_Computadores", 5);
 			
 			planoDeCurso.disciplinaPodeSerDesalocada("Fundamentos_de_Física_Clássica", 2);
 			fail();
 			
 		} catch (PreRequisitosException e) {
+			e.printStackTrace();
 			assertTrue(e.getMessage().equals("<div>" +
 											 "<status>confirm</status>" +
 											 "<message>Existem disciplinas dependentes alocadas</message>" +
 											 "<mensagem2>Deseja realmente desalocar as seguintes disciplinas : </mensagem2>" +
-											 "<disciplinas>" +
-											 		"Fundamentos_de_Física_Moderna " +
-											 		"Organização_e_Arquitetura_de_Computadores_I " +
-											 		"Lab_de_Organização_e_Arquitetura_de_Computadores " +
-											 		"</disciplinas>?</div>"));
+											 "<disciplinas>Fundamentos_de_Física_Moderna " +
+											 "Organização_e_Arquitetura_de_Computadores_I " +
+											 "Lab_de_Organização_e_Arquitetura_de_Computadores " +
+											 "Compiladores " +
+											 "Redes_de_Computadores </disciplinas>?</div>"));
 		} catch (LimiteDeCreditosException e) {
 			fail();
 		}
