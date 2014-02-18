@@ -2,7 +2,6 @@ package models;
 
 /**
  * Classe de Exceção para Créditos insuficientes.
- * @author
  *
  */
 public class CreditosInsuficientesException extends Exception {
