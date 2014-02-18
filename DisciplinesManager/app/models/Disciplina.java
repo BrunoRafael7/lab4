@@ -61,7 +61,7 @@ public class Disciplina implements Comparable<Disciplina>{
 	}
 
 	public boolean contemPreRequisito(Disciplina disc){
-		return preRequisitos.contains(disc);
+		return preRequisitos.contains(disc.getNome());
 	}
 	
 	/**

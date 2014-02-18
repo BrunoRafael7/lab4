@@ -39,13 +39,15 @@ public class Application extends Controller{
 			planoDeCurso.desalocaDisciplina(nome, periodo);
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
+		} catch (PreRequisitosException e) {
+			e.printStackTrace();
 		}
 		return ok(HTMLResult.DISCIPLINA_PODE_SER_ALOCADA.getMessage());
 	}
 	
 	public static Result verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, Integer periodo){
 		try {
-			planoDeCurso.verificaSeDisciplinaPodeSerAlocada(nomeDaDisciplina, periodo);
+			planoDeCurso.disciplinaPodeSerAlocada(nomeDaDisciplina, periodo);
 			
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
@@ -58,23 +60,23 @@ public class Application extends Controller{
 	
 	public static Result verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, Integer periodo){
 		try {
-			
-			planoDeCurso.verificaSeDisciplinaPodeSerDesalocada(nomeDaDisciplina, periodo);
+			planoDeCurso.disciplinaPodeSerDesalocada(nomeDaDisciplina, periodo);
 			
 		} catch (PreRequisitosException e) {
 			return created(e.getMessage());
 		} catch (LimiteDeCreditosException e) {
 			return created(e.getMessage());
 		}
+				
 		return ok(HTMLResult.DISCIPLINA_PODE_SER_DESALOCADA.getMessage());
 	}
 	
 	public static Result refresh(){
 		planoDeCurso.refresh();
-		return getStatusOk();
+		return ok("ok");
 	}
 	
-	public static Result getStatusOk(){
-		return ok(HTMLResult.STATUS_OK.getMessage());
+	public static Result getMensagensDeStatus(){
+		return ok(HTMLResult.TODAS_AS_MENSAGENS_DE_STATUS.getMessage());
 	}
 }

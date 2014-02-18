@@ -9,11 +9,6 @@ nome, totalDeCreditosDaDisciplina{
 	left: 50%; 
 }
 
-label {
-	display: inline-block;
-	width: 5em;
-}
-
 totalDeCreditosDaDisciplina, text{
 	font-size: 12px;
 	color: #FF6A6A;
@@ -94,7 +89,9 @@ nome-principal {
 .ui-icon{
 	float:left;
 	margin:0 7px 20px 0;
+	color: #DD1144
 }
+
 
 .descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
 	width: 480px;
