@@ -282,6 +282,11 @@ public class BehaviorTest {
 		Assert.assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(2).getNome());
 		Assert.assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(3).getNome());
 	}
+	
+	@Test
+	public void verificaSeDisciplinaPodeSerDesalocada(){
+		
+	}
 
 	@Test
 	public void deveVerificarPreRequisitosEstaoSatisfeitos() throws PreRequisitosException, LimiteDeCreditosException {
@@ -455,7 +460,7 @@ public class BehaviorTest {
 	}
 	
 	@Test
-	public void naoDeveRemoverUmPreRequisitoDeUmaDisciplinaAlocada() {
+	public void deveDesalocarDisciplinasSemPreRequisito() {
 		
 	}
 }
