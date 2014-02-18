@@ -79,6 +79,11 @@ public class Periodo {
 		return totalDeCreditos;
 	}
 	
+	/**
+	 * Verifica se o período contém uma dada disciplina
+	 * @param disciplina
+	 * @return true se conter, se não, return false
+	 */
 	public boolean contains(Disciplina disciplina){
 		return disciplinas.contains(disciplina);
 	}

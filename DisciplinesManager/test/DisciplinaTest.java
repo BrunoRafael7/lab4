@@ -50,4 +50,17 @@ public class DisciplinaTest {
 		assertEquals(4, grade.get("Organização_e_Arquitetura_de_Computadores_I").getPeriodo());
 		assertEquals(6, grade.get("Inteligência_Artificial_I").getPeriodo());
 	}
+	
+	@Test
+	public void deveVerificarDificuldade(){
+		assertEquals(1, grade.get("Leitura_e_Produção_de_Textos").getDificuldade());
+		assertEquals(1, grade.get("Informática_e_Sociedade").getDificuldade());
+		assertEquals(2, grade.get("Introdução_à_Computação").getDificuldade());
+		assertEquals(2, grade.get("Optativa_3").getDificuldade());
+		assertEquals(3, grade.get("Programação_I").getDificuldade());
+		assertEquals(4, grade.get("Métodos_Estatísticos").getDificuldade());
+		assertEquals(4, grade.get("Cálculo_Diferencial_e_Integral_I").getDificuldade());
+		assertEquals(5, grade.get("Laboratório_de_Engenharia_de_Software").getDificuldade());
+		assertEquals(5, grade.get("Projeto_em_Computação_I").getDificuldade());
+	}
 }

@@ -141,6 +141,11 @@ public class PlanoDeCurso {
 		
 	}
 
+	/**
+	 * Método auxiliar que recebe lista de dependências(pré requisitos) de uma disciplina.
+	 * @param disciplina
+	 * @return lista das dependências
+	 */
 	private List<Disciplina> getDisciplinasDependentes(Disciplina disciplina) {
 		List<Disciplina> disciplinasDependentes = new LinkedList<Disciplina>();
 		for(Periodo periodo : periodos){
@@ -154,6 +159,9 @@ public class PlanoDeCurso {
 		return disciplinasDependentes;
 	}
 
+	/**
+	 * Atualiza os períodos
+	 */
 	public void refresh() {
 		for(int i = 1 ; i < periodos.size() ; i++){
 			List<String> disciplinas = periodos.get(i).getNomesDasDisciplinas();
@@ -162,6 +170,14 @@ public class PlanoDeCurso {
 		}
 	}
 	
+	/**
+	 * Verifica se uma disciplina pode ser alocada em um dado período
+	 * @param nomeDaDisciplina
+	 * @param periodo a ser verificado
+	 * @return true se puder alocar, se não, return false
+	 * @throws LimiteDeCreditosException se ultrapassar ou não cumprir o mínimo de créditos
+	 * @throws PreRequisitosException se não cumprir os pré-requisitos da disciplina
+	 */
 	public boolean disciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
 		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_ALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
@@ -186,6 +202,15 @@ public class PlanoDeCurso {
 		return true;
 	}
 	
+	/**
+	 * Verifica se a disciplina pode ser desalocada, pois pode haver dependências por ela ser 
+	 * pré-requisito de alguma disciplina em períodos posteriores
+	 * @param nomeDaDisciplina
+	 * @param periodo
+	 * @return true se puder ser desalocada, se não, return false
+	 * @throws PreRequisitosException
+	 * @throws LimiteDeCreditosException
+	 */
 	public boolean disciplinaPodeSerDesalocada(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException{
 		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_DESALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
@@ -218,11 +243,23 @@ public class PlanoDeCurso {
 	}
 	
 	
-	private boolean preRequisitosEstaoSatisfeitos(Disciplina disciplina, int periodo) {
+	/**
+	 * Verifica se os pré-requisitos foram cumpridos
+	 * @param disciplina
+	 * @param periodo
+	 * @return true se foram cumpridos, se não, return false
+	 */
+	public boolean preRequisitosEstaoSatisfeitos(Disciplina disciplina, int periodo) {
 		List<String> preRequisitos = disciplina.getPreRequisitos();
 		return disciplinasAlocadas.containsAll(preRequisitos) && osPreRequisitosEstaoAlocadasNoPeriodo(preRequisitos, periodo);
 	}
 
+	/**
+	 * método auxiliar para verificar se os pré requisitos estão alocados em um período
+	 * @param disciplinas
+	 * @param periodo
+	 * @return true estiverem, se não, return false
+	 */
 	private boolean osPreRequisitosEstaoAlocadasNoPeriodo(List<String> disciplinas , int periodo){
 		Periodo p = periodos.get(periodo - 1);
 		for(String nome : disciplinas){

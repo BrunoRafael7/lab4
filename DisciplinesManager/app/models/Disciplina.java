@@ -62,6 +62,14 @@ public class Disciplina implements Comparable<Disciplina>{
 		return periodo;
 	}
 
+	/**
+	 * 
+	 * @return dificuldade da disciplina
+	 */
+	public int getDificuldade() {
+		return dificuldade;
+	}
+	
 	public boolean contemPreRequisito(Disciplina disc){
 		return preRequisitos.contains(disc.getNome());
 	}
@@ -95,9 +103,4 @@ public class Disciplina implements Comparable<Disciplina>{
 		}
 		return -1;
 	}
-
-	public int getDificuldade() {
-		return dificuldade;
-	}
-
 }
