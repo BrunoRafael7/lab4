@@ -89,7 +89,9 @@ nome-principal {
 .ui-icon{
 	float:left;
 	margin:0 7px 20px 0;
+	color: #DD1144;
 }
+
 
 .descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
 	width: 480px;

@@ -8,7 +8,7 @@ GET     /DisciplinesManager/refresh   								controllers.Application.refresh()
 GET		/DisciplinesManager/maximoDeCreditos						controllers.Application.maximoDeCreditosPorPeriodo()
 GET		/DisciplinesManager/verificaSeDisciplinaPodeSerAlocada		controllers.Application.verificaSeDisciplinaPodeSerAlocada(nome:String, periodo:Int)
 GET		/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada	controllers.Application.verificaSeDisciplinaPodeSerDesalocada(nome:String, periodo:Int)
-GET		/DisciplinesManager/getStatusOk								controllers.Application.getStatusOk()
+GET		/DisciplinesManager/getMensagensDeStatus					controllers.Application.getMensagensDeStatus()
 POST 	/DisciplinesManager/alocaDisciplina/:nome/:periodo			controllers.Application.alocarDisciplina(nome:String, periodo:Int)
 POST 	/DisciplinesManager/desalocaDisciplina/:nome/:periodo		controllers.Application.desalocarDisciplina(nome:String, periodo:Int)
 

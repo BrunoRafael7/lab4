@@ -20,7 +20,6 @@ public class PlanoDeCurso {
 	private List<Periodo> periodos;
 	private GradeCurricular gradeCurricular;
 	private List<String> disciplinasAlocadas;
-	private List<Integer> periodosAlocados;
 
 	/**
 	 * Construtor
@@ -29,7 +28,6 @@ public class PlanoDeCurso {
 		periodos = new LinkedList<Periodo>();
 		gradeCurricular = new GradeCurricular();
 		disciplinasAlocadas = new ArrayList<String>();
-		periodosAlocados = new ArrayList<Integer>();
 		/*
 		 * CREATOR : Classe PlanoDeCurso registra objetos do tipo Periodo pois
 		 * planoDeCurso é composta de Periodos
@@ -47,7 +45,6 @@ public class PlanoDeCurso {
 		List<Disciplina> disciplinas = gradeCurricular.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO);
 		for (Disciplina disc : disciplinas) {
 			disciplinasAlocadas.add(disc.getNome());
-			periodosAlocados.add(PRIMEIRO_PERIODO);
 		}
 		periodos.add(new Periodo(disciplinas));
 	}
@@ -115,10 +112,13 @@ public class PlanoDeCurso {
 	 * @throws MaximoDeCreditosExcedidoException 
 	 */
 	public void alocaDisciplina(String nomeDaDisciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+		
+		if(disciplinaPodeSerAlocada(nomeDaDisciplina, periodo)){
 			Periodo p = periodos.get(periodo - 1);
 			Disciplina disc = gradeCurricular.get(nomeDaDisciplina);
 			p.add(disc);
 			disciplinasAlocadas.add(disc.getNome());
+		}
 	}
 	
 
@@ -130,12 +130,14 @@ public class PlanoDeCurso {
 	 * @throws PreRequisitosException 
 	 * @throws LimiteDeCreditosException 
 	 */
-	public void desalocaDisciplina(String nomeDaDisciplina, Integer periodo) throws LimiteDeCreditosException {
-			
-		Periodo p = periodos.get(periodo - 1);
-		Disciplina d = gradeCurricular.get(nomeDaDisciplina);
-		p.remove(d);
-		disciplinasAlocadas.remove(d);
+	public void desalocaDisciplina(String nomeDaDisciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException{
+
+		if(disciplinaPodeSerDesalocada(nomeDaDisciplina, periodo)){
+			Periodo p = periodos.get(periodo - 1);
+			Disciplina d = gradeCurricular.get(nomeDaDisciplina);
+			p.remove(d);
+			disciplinasAlocadas.remove(d);
+		}
 		
 	}
 
@@ -148,6 +150,7 @@ public class PlanoDeCurso {
 				}
 			}
 		}
+		System.out.println("size " + disciplinasDependentes.size());
 		return disciplinasDependentes;
 	}
 
@@ -159,7 +162,7 @@ public class PlanoDeCurso {
 		}
 	}
 	
-	public void verificaSeDisciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
+	public boolean disciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
 		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_ALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
@@ -180,9 +183,10 @@ public class PlanoDeCurso {
 			throw new LimiteDeCreditosException(HTMLResult.PERIODO_ANTERIOR_COM_CREDITOS_MINIMOS_NAO_CUMPRIDOS.getMessage());
 		}
 		
+		return true;
 	}
 	
-	public void verificaSeDisciplinaPodeSerDesalocada(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException{
+	public boolean disciplinaPodeSerDesalocada(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException{
 		if(periodo == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_DESALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
@@ -191,18 +195,26 @@ public class PlanoDeCurso {
 		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
 		List<Disciplina> disciplinasDependentes = getDisciplinasDependentes(disciplina);
 		
-		String message = "Existem disciplinas dependentes alocadas! As sequintes Disciplinas são dependentes : ";
-		for(Disciplina dsp : disciplinasDependentes){
-			message += dsp.getNome() + " "; 
-		}
 		
 		if(!disciplinasDependentes.isEmpty()){
+			
+			String message = HTMLResult.DESEJA_DESALOCAR_AS_SEGUINTES_DISCIPLINAS.getMessage();
+			String disciplinas = "";
+			for(Disciplina dsp : disciplinasDependentes){
+				disciplinas += dsp.getNome() + " "; 
+			}
+			disciplinas += "?</disciplinas>";
+			message.replace("</disciplinas>", disciplinas);
+			System.out.println("m " + message);
+			System.out.println("d " + disciplinas);
 			throw new PreRequisitosException(message);
 		}
 		
 //		if((p.getTotalDeCreditos() - disc.getCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
 //			throw new LimiteDeCreditosException("Mínimo de créditos não será atingido");
 //		}
+		
+		return true;
 	}
 	
 	
