@@ -12,7 +12,6 @@ $(function(){
 	_updateTotalDeCreditos();
 	_updateTooltipsAndEffects();
 	totalDeCreditosAtual = parseInt($("totalDeCreditos").html());
-	createDialogMessage();
 	
 	$.get("/DisciplinesManager/maximoDeCreditos", function(result){
 		maximoDeCreditosPorPeriodo = parseInt(result);
@@ -48,14 +47,16 @@ function connectToLists(){
 					$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
 						function(result){
 							var status = $(result).children('status').html();
-							var mensagem1 = $(result).children('mensagem1').html();
+							var mensagem1 = $(result).children('message').html();
 							var mensagem2 = $(result).children('mensagem2').html();
 							var nomesDasDisciplinas = $(result).children('disciplinas').html();
-							alert(status == messageOk);
 							if(status == messageOk){
 								desalocaDisciplina(nomeDaDisciplina, periodoAtual, ui);
 							}else if(status == confirm){
-								alert(mensagem1 + mensagem2 + nomesDasDisciplinas);
+								var mensagemCompleta = mensagem1 + mensagem2 + nomesDasDisciplinas;
+								var nomesSemEspacos = nomesDasDisciplinas.trim();
+								alert(nomesSemEspacos);
+								createConfirmMessage(nomesSemEspacos.split(" "), mensagemCompleta);
 							}else{
 								$('.sortable-list').sortable( 'cancel' );
 							}
@@ -122,25 +123,6 @@ function alterTable(proximoPeriodo){
 	_updateTooltipsAndEffects();
 }
 
-/*
-function openDialog(component){
-	 $( "#janelDeConfirmacao" ).dialog({
-			resizable: false,
-			height:140,
-			modal: true,
-			buttons: {
-				"remover": function() {
-					$( this ).dialog( "close" );
-				 },
-			
-				Cancel: function() {
-					$( this ).dialog( "close" );
-	   			}
-	   		}
-	 });
-}
-*/
-
 function _updateTooltipsAndEffects(){
 	$('#colunasDeDisciplinas li').hover(function(){
 				var disciplina = $(this);
@@ -160,7 +142,7 @@ function _updateTooltipsAndEffects(){
 			    }else{
 			    	$.get("/DisciplinesManager/verificaSeDisciplinaPodeSerDesalocada",{"nome":nomeDaDisciplina, "periodo":periodoAtual},
 				       	function(result){
-				       		var tooltipMessage = $(result).children('mensagem1').html();
+				       		var tooltipMessage = $(result).children("message").html();
 				       		disciplina.attr('title', tooltipMessage);
 				       	}
 			    	);
@@ -172,19 +154,37 @@ function _updateTooltipsAndEffects(){
 	
 }
 
-function createDialogMessage(){
+function createConfirmMessage(nomesDasDisciplinas, mensagemCompleta){
+	var confirmaExclusao = confirm(mensagemCompleta);
+	if(confirmaExclusao){
+		alert("Disciplinas excluídas");
+	}else{
+		
+	}
+	alert(3);
+
+/*
+	 var dialog = "<div id=\"dialog-confirm\" title=\"Remoção de disciplinas\">"+
+			"<p><span class=\"ui-icon ui-icon-alert\"></span>" + mensagemCompleta +"</p></div>";
+	 alert(nomesDasDisciplinas);
+	 $("#divPrincipal").append(dialog);
+
 	 $( "#dialog-confirm" ).dialog({
 		resizable: false,
 		height:140,
 		modal: true,
 		buttons: {
 				"remover": function() {
-					$( this ).dialog( "close" );
+					for(var conteudoDoPeriodo in divs){
+						for(var nome in nomesDasDisciplnas){
+							$(conteudoDoPeriodo).remove("#" + nome);
+						}
+					}
 				},
 				Cancel: function() {
 					$( this ).dialog( "close" );
 				}
 		}
 	});
-	//$( "#dialog-confirm" ).dialog("close");
+	$( "#dialog-confirm" ).dialog("open");*/
 }
