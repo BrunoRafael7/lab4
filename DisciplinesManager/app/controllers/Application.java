@@ -72,7 +72,7 @@ public class Application extends Controller{
 	}
 	
 	public static Result refresh(){
-		planoDeCurso.refresh();
+		planoDeCurso = new PlanoDeCurso();
 		return ok("ok");
 	}
 	

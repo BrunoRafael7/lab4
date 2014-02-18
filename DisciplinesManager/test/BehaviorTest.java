@@ -1,3 +1,6 @@
+import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
 import java.util.List;
 
 import models.Disciplina;
@@ -34,44 +37,44 @@ public class BehaviorTest {
 	public void verificaSeOPrimeiroPeriodoEstaIniciandoCorretamente() {
 		List<Disciplina> disciplinasDoPrimeiroPeriodo = planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO);
 
-		Assert.assertEquals(6, disciplinasDoPrimeiroPeriodo.size());
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(6, disciplinasDoPrimeiroPeriodo.size());
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
 		
-		Assert.assertEquals("Leitura_e_Produção_de_Textos",	disciplinasDoPrimeiroPeriodo.get(0).getNome());
-		Assert.assertEquals("Álgebra_Vetorial_e_Geometria_Analítica", disciplinasDoPrimeiroPeriodo.get(1).getNome());
-		Assert.assertEquals("Cálculo_Diferencial_e_Integral_I", disciplinasDoPrimeiroPeriodo.get(2).getNome());
-		Assert.assertEquals("Programação_I", disciplinasDoPrimeiroPeriodo.get(3).getNome());
-		Assert.assertEquals("Introdução_à_Computação", disciplinasDoPrimeiroPeriodo.get(4).getNome());
-		Assert.assertEquals("Laboratório_de_Programação_I", disciplinasDoPrimeiroPeriodo.get(5).getNome());
+		assertEquals("Leitura_e_Produção_de_Textos",	disciplinasDoPrimeiroPeriodo.get(0).getNome());
+		assertEquals("Álgebra_Vetorial_e_Geometria_Analítica", disciplinasDoPrimeiroPeriodo.get(1).getNome());
+		assertEquals("Cálculo_Diferencial_e_Integral_I", disciplinasDoPrimeiroPeriodo.get(2).getNome());
+		assertEquals("Programação_I", disciplinasDoPrimeiroPeriodo.get(3).getNome());
+		assertEquals("Introdução_à_Computação", disciplinasDoPrimeiroPeriodo.get(4).getNome());
+		assertEquals("Laboratório_de_Programação_I", disciplinasDoPrimeiroPeriodo.get(5).getNome());
 	}
 
 	@Test
 	public void deveAlocarDisciplinaNoPeriodo() throws PreRequisitosException, LimiteDeCreditosException{
 		
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 	
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		
-		Assert.assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
 		//LISTA COM DISCIPLINAS ALOCADAS NO SEGUNDO PERIODO
 		List<Disciplina> listaDisciplinaSegundoPeriodo = planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO);
 		
-		Assert.assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
-		Assert.assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(1).getNome());
-		Assert.assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(2).getNome());
-		Assert.assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(3).getNome());
+		assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
+		assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(1).getNome());
+		assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(2).getNome());
+		assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(3).getNome());
 		
 	}
 	
 	@Test
 	public void naoDevePermitirAddNovaDisciplinaAoPrimeiroPeriodo()	throws PreRequisitosException, LimiteDeCreditosException {
 
-		Assert.assertEquals(24,	planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
-		Assert.assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
+		assertEquals(24,	planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
 
 		try {
 			planoDeCurso.alocaDisciplina("Programação_I", PRIMEIRO_PERIODO); // DISCIPLINA REPETIDA																				
@@ -79,8 +82,8 @@ public class BehaviorTest {
 			e.getMessage();
 		}
 
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
-		Assert.assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
 
 		try {
 			planoDeCurso.alocaDisciplina("Matemática_Discreta", PRIMEIRO_PERIODO);
@@ -94,93 +97,120 @@ public class BehaviorTest {
 			e.getMessage();
 		}
 
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
-		Assert.assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(PRIMEIRO_PERIODO).size());
 	}
 
 	@Test
 	public void deveAddNovaDisciplinaAoSegundoPeriodo()	throws PreRequisitosException, LimiteDeCreditosException {
-		Assert.assertEquals(0, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
 
-		Assert.assertEquals(4, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
-		Assert.assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(4, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
+		assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 		planoDeCurso.alocaDisciplina("Álgebra_Linear", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
 
-		Assert.assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(6, planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO).size());
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 	}
 
 	@Test
 	public void deveAddNovaDisciplinaEmVariosPeriodos() throws PreRequisitosException, LimiteDeCreditosException {
 
 		// SEGUNDO PERIODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", SEGUNDO_PERIODO);
-		Assert.assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 		// TERCEIRO PERIODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
 		planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Álgebra_Linear", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Teoria_da_Computação", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Moderna", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Estruturas_de_Dados_e_Algoritmos", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Gerência_da_Informação", TERCEIRO_PERIODO);
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
 
 		// QUARTO PERIODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
 		planoDeCurso.alocaDisciplina("Organização_e_Arquitetura_de_Computadores_I", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Lab_de_Organização_e_Arquitetura_de_Computadores", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Informática_e_Sociedade", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Sistemas_de_Informação_I", QUARTO_PERIODO);
-		Assert.assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
+		assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
 	}
 
 	@Test
 	public void disciplinasDoPrimeiroPeriodoNaoDevemEstarDisponiveisParaAlocar() throws PreRequisitosException, LimiteDeCreditosException {
+	
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		try {
+			planoDeCurso.alocaDisciplina("Programação_I", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+		}
+
+		try {
+			planoDeCurso.alocaDisciplina("Álgebra_Vetorial_e_Geometria_Analítica", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+		}
+
+		try {
+			planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_I", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+		}
+
+		try {
+			planoDeCurso.alocaDisciplina("Introdução_à_Computação",	SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+		}
+
+		try {
+			planoDeCurso.alocaDisciplina("Laboratório_de_Programação_I", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+		}
+
+		try {
+			planoDeCurso.alocaDisciplina("Leitura_e_Produção_de_Textos", SEGUNDO_PERIODO);
+			fail();
+		} catch (PreRequisitosException e) {
+		}
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 			
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Programação_I", SEGUNDO_PERIODO));
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Álgebra_Vetorial_e_Geometria_Analítica", PRIMEIRO_PERIODO));
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Cálculo_Diferencial_e_Integral_I", PRIMEIRO_PERIODO));
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Introdução_à_Computação",	PRIMEIRO_PERIODO));
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Laboratório_de_Programação_I", PRIMEIRO_PERIODO));
-		Assert.assertFalse(planoDeCurso.disciplinaPodeSerAlocada("Leitura_e_Produção_de_Textos", PRIMEIRO_PERIODO));
 	}
 
 	@Test
 	public void deveAtualizarQuantidadeDeCreditos()	throws PreRequisitosException, LimiteDeCreditosException {
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
-		Assert.assertEquals(4, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(4, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
-		Assert.assertEquals(6, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(6, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
-		Assert.assertEquals(10, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(10, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
-		Assert.assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(14, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Álgebra_Linear", SEGUNDO_PERIODO);
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 	}
 
 	@Test
 	public void naoDeveExcederLimiteDeCreditos() throws PreRequisitosException, LimiteDeCreditosException {
 
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Optativa_1", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
@@ -188,99 +218,165 @@ public class BehaviorTest {
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
-		Assert.assertEquals(28,	planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(28,	planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 		try {
 				planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
 		} catch (LimiteDeCreditosException e) {
 			e.getMessage();
 		}
-		Assert.assertEquals(28,	planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(28,	planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 	}
 
 	@Test
 	public void naoDeveDesalocarDisciplinaDoPrimeiroPeriodo(){
 
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
 
 		try {
 			planoDeCurso.desalocaDisciplina("Programação_I", PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) { }
 
 		try {
 			planoDeCurso.desalocaDisciplina("Cálculo_Diferencial_e_Integral_I",	PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) { }
 		
 		try {
 			planoDeCurso.desalocaDisciplina("Álgebra_Vetorial_e_Geometria_Analítica", PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) { }
 		
 		try {
 			planoDeCurso.desalocaDisciplina("Leitura_e_Produção_de_Textos",	PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) {	}
 		
 		try {
 			planoDeCurso.desalocaDisciplina("Introdução_à_Computação", PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) { 
 			
 		}
 		
 		try {
 			planoDeCurso.desalocaDisciplina("Laboratório_de_Programação_I", PRIMEIRO_PERIODO);
+			fail();
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 		} catch (LimiteDeCreditosException e) { 
-			
 		}
 		
-
-		Assert.assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+		assertEquals(24, planoDeCurso.getTotalDeCreditosDoPeriodo(PRIMEIRO_PERIODO));
+	}
+	
+	@Test
+	public void naoDeveDesalocarDisciplinaSeElaEstiverInseridaEmAlgumPrerequisito(){
+		
+		try {
+			planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", 2);
+			planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", 2);
+			planoDeCurso.alocaDisciplina("Matemática_Discreta", 2);
+			planoDeCurso.alocaDisciplina("Gerência_da_Informação", 2);
+			planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
+			
+			planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Moderna", 3);
+			planoDeCurso.alocaDisciplina("Teoria_da_Computação", 3);
+			planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", 3);
+			planoDeCurso.alocaDisciplina("Laboratório_de_Estruturas_de_Dados_e_Algoritmos", 3);
+			planoDeCurso.alocaDisciplina("Probabilidade_e_Estatística", 3);
+			
+			planoDeCurso.alocaDisciplina("Organização_e_Arquitetura_de_Computadores_I", 4);
+			planoDeCurso.alocaDisciplina("Lab_de_Organização_e_Arquitetura_de_Computadores", 4);
+			
+			/*String[] comparable = {"Organização_e_Arquitetura_de_Computadores_I", 
+								   "Lab_de_Organização_e_Arquitetura_de_Computadores",
+								   "Fundamentos_de_Física_Moderna"};*/
+			
+			planoDeCurso.disciplinaPodeSerDesalocada("Fundamentos_de_Física_Clássica", 2);
+			fail();
+			
+		} catch (PreRequisitosException e) {
+			assertTrue(e.getMessage().equals("<div>" +
+											 "<status>confirm</status>" +
+											 "<message>Existem disciplinas dependentes alocadas</message>" +
+											 "<mensagem2>Deseja realmente desalocar as seguintes disciplinas : </mensagem2>" +
+											 "<disciplinas>" +
+											 		"Fundamentos_de_Física_Moderna " +
+											 		"Organização_e_Arquitetura_de_Computadores_I " +
+											 		"Lab_de_Organização_e_Arquitetura_de_Computadores " +
+											 		"</disciplinas>?</div>"));
+		} catch (LimiteDeCreditosException e) {
+			fail();
+		}
 	}
 
 	@Test
-	public void deveDesalocarDisciplina() throws PreRequisitosException, LimiteDeCreditosException {
+	public void deveDesalocarDisciplina() {
 
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
-		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
-		planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
-		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
-		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
-		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
-		planoDeCurso.alocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
-		Assert.assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		try {
+			
+			planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
+			planoDeCurso.alocaDisciplina("Gerência_da_Informação", TERCEIRO_PERIODO);
+			
+		} catch (PreRequisitosException e) {
+			fail();
+		} catch (LimiteDeCreditosException e) {
+			fail();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+//		assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 
 		List<Disciplina> listaDisciplinaSegundoPeriodo = planoDeCurso.getDisciplinasDoPeriodo(SEGUNDO_PERIODO);
+//		
+//		assertEquals(6, listaDisciplinaSegundoPeriodo.size());
+//		assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
+//		assertEquals("Teoria_dos_Grafos", listaDisciplinaSegundoPeriodo.get(1).getNome());
+//		assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(2).getNome());
+//		assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(3).getNome());
+//		assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(4).getNome());
+//		assertEquals("Direito_e_Cidadania", listaDisciplinaSegundoPeriodo.get(5).getNome());
 		
-		Assert.assertEquals(6, listaDisciplinaSegundoPeriodo.size());
-		Assert.assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
-		Assert.assertEquals("Teoria_dos_Grafos", listaDisciplinaSegundoPeriodo.get(1).getNome());
-		Assert.assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(2).getNome());
-		Assert.assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(3).getNome());
-		Assert.assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(4).getNome());
-		Assert.assertEquals("Direito_e_Cidadania", listaDisciplinaSegundoPeriodo.get(5).getNome());
+		try {
+			planoDeCurso.desalocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+			fail();
+		} catch (LimiteDeCreditosException e) {
+			fail();
+		}
 		
-		planoDeCurso.desalocaDisciplina("Direito_e_Cidadania", SEGUNDO_PERIODO);
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
-		planoDeCurso.desalocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
-		Assert.assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
-		Assert.assertEquals(4, listaDisciplinaSegundoPeriodo.size());
+		try {
+			planoDeCurso.desalocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
+		} catch (PreRequisitosException e) {
+			fail();
+		} catch (LimiteDeCreditosException e) {
+			fail();
+		}
+
+		assertEquals(16, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(4, listaDisciplinaSegundoPeriodo.size());
 		
-		Assert.assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
-		Assert.assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(1).getNome());
-		Assert.assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(2).getNome());
-		Assert.assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(3).getNome());
+		assertEquals("Programação_II", listaDisciplinaSegundoPeriodo.get(0).getNome());
+		assertEquals("Fundamentos_de_Física_Clássica", listaDisciplinaSegundoPeriodo.get(1).getNome());
+		assertEquals("Laboratório_de_Programação_II", listaDisciplinaSegundoPeriodo.get(2).getNome());
+		assertEquals("Matemática_Discreta", listaDisciplinaSegundoPeriodo.get(3).getNome());
 	}
 	
 	@Test
@@ -303,26 +399,26 @@ public class BehaviorTest {
 		Disciplina leda = grade.get("Laboratório_de_Estruturas_de_Dados_e_Algoritmos");
 		
 		try {
-			Assert.assertTrue(planoDeCurso.disciplinaPodeSerAlocada(p2.getNome(), 2));
-			Assert.assertTrue(planoDeCurso.disciplinaPodeSerAlocada(c2.getNome(), 2));
+			assertTrue(planoDeCurso.disciplinaPodeSerAlocada(p2.getNome(), 2));
+			assertTrue(planoDeCurso.disciplinaPodeSerAlocada(c2.getNome(), 2));
 		} catch (LimiteDeCreditosException e) {
 			e.printStackTrace();
 		} catch (PreRequisitosException e) {
 			e.printStackTrace();
 		}
 		
-		Assert.assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(tc, SEGUNDO_PERIODO));
+		assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(tc, SEGUNDO_PERIODO));
 		
-		Assert.assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(md,SEGUNDO_PERIODO));
-		Assert.assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(infosoc,SEGUNDO_PERIODO));
+		assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(md,SEGUNDO_PERIODO));
+		assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(infosoc,SEGUNDO_PERIODO));
 		
-		Assert.assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(msn,QUARTO_PERIODO));
+		assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(msn,QUARTO_PERIODO));
 		
-		Assert.assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(optativa1,TERCEIRO_PERIODO));
+		assertTrue(planoDeCurso.preRequisitosEstaoSatisfeitos(optativa1,TERCEIRO_PERIODO));
 		
-		Assert.assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(proj1, QUINTO_PERIODO));
+		assertFalse(planoDeCurso.preRequisitosEstaoSatisfeitos(proj1, QUINTO_PERIODO));
 		
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
@@ -340,13 +436,13 @@ public class BehaviorTest {
 	public void deveAddDisciplinaSomenteSePreRequisitoEstiverAlocado() throws PreRequisitosException, LimiteDeCreditosException{
 		
 		//ALOCANDO PARA SEGUNDO PERÍODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		planoDeCurso.alocaDisciplina("Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Teoria_dos_Grafos", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Matemática_Discreta", SEGUNDO_PERIODO);
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Clássica", SEGUNDO_PERIODO);
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
 		try{
 			planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", SEGUNDO_PERIODO);
@@ -374,17 +470,17 @@ public class BehaviorTest {
 			e.getMessage();
 		}
 		
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(SEGUNDO_PERIODO));
 		
 		
 		//ALOCANDO PARA TERCEIRO PERÍODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
 		planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Laboratório_de_Estruturas_de_Dados_e_Algoritmos", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Gerência_da_Informação", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Álgebra_Linear", TERCEIRO_PERIODO);
 		planoDeCurso.alocaDisciplina("Metodologia_Científica", TERCEIRO_PERIODO);
-		Assert.assertEquals(20, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
+		assertEquals(20, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
 
 		
 		try{ //AINDA NÃO PAGOU CÁLCULO 2, ENTÃO NÃO DEVE PODER ALOCAR
@@ -402,17 +498,17 @@ public class BehaviorTest {
 		}catch(PreRequisitosException e){
 			e.getMessage();
 		}
-		Assert.assertEquals(20, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
+		assertEquals(20, planoDeCurso.getTotalDeCreditosDoPeriodo(TERCEIRO_PERIODO));
 
 		
 		//ALOCANDO PARA QUARTO PERÍODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
 		planoDeCurso.alocaDisciplina("Cálculo_Diferencial_e_Integral_II", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Sistemas_de_Informação_I", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Informática_e_Sociedade", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Teoria_da_Computação", QUARTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Direito_e_Cidadania", QUARTO_PERIODO);
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
 
 		try{ //NÃO PAGOU CÁLCULO II(Só a partir do próximo período), ENTÃO NÃO DEVE PODER ALOCAR
 			planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Moderna", QUARTO_PERIODO);
@@ -424,18 +520,18 @@ public class BehaviorTest {
 		}catch(PreRequisitosException e){
 			e.getMessage();
 		}
-		Assert.assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
+		assertEquals(18, planoDeCurso.getTotalDeCreditosDoPeriodo(QUARTO_PERIODO));
 
 		
 		//ALOCANDO PARA QUINTO PERÍODO
-		Assert.assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUINTO_PERIODO));
+		assertEquals(0, planoDeCurso.getTotalDeCreditosDoPeriodo(QUINTO_PERIODO));
 		planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Moderna", QUINTO_PERIODO );
 		planoDeCurso.alocaDisciplina("Lógica_Matemática", QUINTO_PERIODO );
 		planoDeCurso.alocaDisciplina("Sistemas_de_Informação_II", QUINTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Probabilidade_e_Estatística", QUINTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Paradigmas_de_Linguagens_de_Programação", QUINTO_PERIODO);
 		planoDeCurso.alocaDisciplina("Bancos_de_Dados_I", QUINTO_PERIODO);
-		Assert.assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(QUINTO_PERIODO));
+		assertEquals(22, planoDeCurso.getTotalDeCreditosDoPeriodo(QUINTO_PERIODO));
 
 		try{ //NÃO PAGOU FISICA MODERNA(Só a partir do próximo período), ENTÃO NÃO DEVE PODER ALOCAR
 			planoDeCurso.alocaDisciplina("Organização_e_Arquitetura_de_Computadores_I", QUINTO_PERIODO);

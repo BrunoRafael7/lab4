@@ -61,6 +61,15 @@ public class Disciplina implements Comparable<Disciplina>{
 	public int getPeriodo() {
 		return periodo;
 	}
+	
+	public boolean contemAoMenosUmPrerequisito(List<Disciplina> disciplinas){
+		for(Disciplina d : disciplinas){
+			if(this.contemPreRequisito(d)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * 

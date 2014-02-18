@@ -111,7 +111,7 @@ public class PlanoDeCurso {
 	 *            para alocar disciplina
 	 * @throws MaximoDeCreditosExcedidoException 
 	 */
-	public void alocaDisciplina(String nomeDaDisciplina, Integer periodo) throws PreRequisitosException, LimiteDeCreditosException {
+	public void alocaDisciplina(String nomeDaDisciplina, int periodo) throws PreRequisitosException, LimiteDeCreditosException {
 		
 		if(disciplinaPodeSerAlocada(nomeDaDisciplina, periodo)){
 			Periodo p = periodos.get(periodo - 1);
@@ -142,24 +142,6 @@ public class PlanoDeCurso {
 	}
 
 	/**
-	 * Método auxiliar que recebe lista de dependências(pré requisitos) de uma disciplina.
-	 * @param disciplina
-	 * @return lista das dependências
-	 */
-	private List<Disciplina> getDisciplinasDependentes(Disciplina disciplina) {
-		List<Disciplina> disciplinasDependentes = new LinkedList<Disciplina>();
-		for(Periodo periodo : periodos){
-			for(Disciplina disc : periodo.getDisciplinas()){
-				if(disc.contemPreRequisito(disciplina)){
-					disciplinasDependentes.add(disc);
-				}
-			}
-		}
-		System.out.println("size " + disciplinasDependentes.size());
-		return disciplinasDependentes;
-	}
-
-	/**
 	 * Atualiza os períodos
 	 */
 	public void refresh() {
@@ -179,13 +161,13 @@ public class PlanoDeCurso {
 	 * @throws PreRequisitosException se não cumprir os pré-requisitos da disciplina
 	 */
 	public boolean disciplinaPodeSerAlocada(String nomeDaDisciplina, int periodo) throws LimiteDeCreditosException, PreRequisitosException{
-		if(periodo == PRIMEIRO_PERIODO){
+		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
+		if(periodo == PRIMEIRO_PERIODO || disciplina.getPeriodo() == PRIMEIRO_PERIODO){
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_ALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
 		
 		Periodo periodoAtual = periodos.get(periodo - 1);
 		Periodo periodoAnterior = periodos.get(periodo - 2);
-		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
 		
 		if(!preRequisitosEstaoSatisfeitos(disciplina, periodo)){
 			throw new PreRequisitosException(HTMLResult.PRE_REQUISITOS_NAO_CUMPRIDOS.getMessage());
@@ -216,11 +198,13 @@ public class PlanoDeCurso {
 			throw new PreRequisitosException(HTMLResult.NAO_PODE_DESALOCAR_DISCIPLINAS_DO_PRIMEIRO_PERIODO.getMessage());
 		}
 		
-//		Periodo p = periodos.get(periodo-1);
 		Disciplina disciplina = gradeCurricular.get(nomeDaDisciplina);
-		List<Disciplina> disciplinasDependentes = getDisciplinasDependentes(disciplina);
+		List<Disciplina> disciplinasComDependencias = new LinkedList<Disciplina>();
 		
-		
+		disciplinasComDependencias.add(disciplina);
+		List<Disciplina> disciplinasDependentes = getDisciplinasDependentes(new LinkedList<Disciplina>(),
+																				disciplinasComDependencias, 
+																				periodo);
 		if(!disciplinasDependentes.isEmpty()){
 			
 			String message = HTMLResult.DESEJA_DESALOCAR_AS_SEGUINTES_DISCIPLINAS.getMessage();
@@ -228,20 +212,41 @@ public class PlanoDeCurso {
 			for(Disciplina dsp : disciplinasDependentes){
 				disciplinas += dsp.getNome() + " "; 
 			}
-			disciplinas += "?</disciplinas>";
-			message.replace("</disciplinas>", disciplinas);
-			System.out.println("m " + message);
-			System.out.println("d " + disciplinas);
-			throw new PreRequisitosException(message);
+			disciplinas += "</disciplinas>";
+			String newMessage = message.replace("</disciplinas>", disciplinas);
+			throw new PreRequisitosException(newMessage);
 		}
 		
-//		if((p.getTotalDeCreditos() - disc.getCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
-//			throw new LimiteDeCreditosException("Mínimo de créditos não será atingido");
+//		Periodo p = periodos.get(periodo - 1);
+//		if((p.getTotalDeCreditos() - disciplina.getCreditos()) < MINIMO_DE_CREDITOS_POR_PERIODO){
+//			throw new LimiteDeCreditosException(HTMLResult.MINIMO_DE_CREDITOS_NAO_ATINGIDO.getMessage());
 //		}
 		
 		return true;
 	}
+
 	
+	private List<Disciplina> getDisciplinasDependentes(List<Disciplina> disciplinasDependentes, List<Disciplina> disciplinasComDependencias, int periodo){
+		Periodo p = null;
+		try{ 
+			p = periodos.get(periodo);
+		}catch(IndexOutOfBoundsException e){
+			return disciplinasDependentes;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		List<Disciplina> disciplinasDependentesNoPeriodoAtual = new LinkedList<Disciplina>();
+		List<Disciplina> disciplinasDoPeriodoAtual = p.getDisciplinas();
+		for(Disciplina dsp : disciplinasDoPeriodoAtual){
+			if(dsp.contemAoMenosUmPrerequisito(disciplinasComDependencias)){
+				disciplinasDependentes.add(dsp);
+				disciplinasDependentesNoPeriodoAtual.add(dsp);
+			}
+		}
+		
+		return getDisciplinasDependentes(disciplinasDependentes, disciplinasDependentesNoPeriodoAtual, ++periodo);
+	}
 	
 	/**
 	 * Verifica se os pré-requisitos foram cumpridos
