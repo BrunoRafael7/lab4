@@ -53,14 +53,20 @@ public class DisciplinaTest {
 	
 	@Test
 	public void deveVerificarDificuldade(){
-		assertEquals(1, grade.get("Leitura_e_Produção_de_Textos").getDificuldade());
-		assertEquals(1, grade.get("Informática_e_Sociedade").getDificuldade());
-		assertEquals(2, grade.get("Introdução_à_Computação").getDificuldade());
-		assertEquals(2, grade.get("Optativa_3").getDificuldade());
-		assertEquals(3, grade.get("Programação_I").getDificuldade());
-		assertEquals(4, grade.get("Métodos_Estatísticos").getDificuldade());
-		assertEquals(4, grade.get("Cálculo_Diferencial_e_Integral_I").getDificuldade());
-		assertEquals(5, grade.get("Laboratório_de_Engenharia_de_Software").getDificuldade());
-		assertEquals(5, grade.get("Projeto_em_Computação_I").getDificuldade());
+		String MUITO_FACIL = "Muito Fácil";
+		String FACIL = "Fácil";
+		String MEDIANO = "Mediano";
+		String DIFICIL = "Difícil";
+		String MUITO_DIFICIL = "Muito Difícil";
+		
+		assertEquals(MUITO_FACIL, grade.get("Leitura_e_Produção_de_Textos").getDificuldade());
+		assertEquals(MUITO_FACIL, grade.get("Informática_e_Sociedade").getDificuldade());
+		assertEquals(FACIL, grade.get("Introdução_à_Computação").getDificuldade());
+		assertEquals(FACIL, grade.get("Optativa_3").getDificuldade());
+		assertEquals(MEDIANO, grade.get("Programação_I").getDificuldade());
+		assertEquals(DIFICIL, grade.get("Métodos_Estatísticos").getDificuldade());
+		assertEquals(DIFICIL, grade.get("Cálculo_Diferencial_e_Integral_I").getDificuldade());
+		assertEquals(MUITO_DIFICIL, grade.get("Laboratório_de_Engenharia_de_Software").getDificuldade());
+		assertEquals(MUITO_DIFICIL, grade.get("Projeto_em_Computação_I").getDificuldade());
 	}
 }

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class ColetorDeDisciplinas {
 		String nome = line[1];
 		int creditos = Integer.parseInt(line[2]);
 		int periodo = Integer.parseInt(line[3]);
-		int dificuldade = Integer.parseInt(line[4]);
+		String dificuldade = line[4];
 		/*
 		 * CREATOR : ColetorDeDisciplinas será o responsável por criar Disciplinas pois 
 		 * ColetorDeDisciplinas tem as informações necessárias para a criação de uma Disciplina 

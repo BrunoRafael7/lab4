@@ -13,7 +13,7 @@ public class Disciplina implements Comparable<Disciplina>{
 	private List<String> preRequisitos;
 	private int creditos;
 	private int periodo;
-	private int dificuldade;
+	private String dificuldade;
 	
 	/**
 	 * Construtor
@@ -22,7 +22,7 @@ public class Disciplina implements Comparable<Disciplina>{
 	 * @param creditos da disciplina.
 	 * @param periodo em que a disciplina pertence.
 	 */
-	public Disciplina(List<String> preRequisitos, String nome, int creditos, int periodo, int dificuldade){
+	public Disciplina(List<String> preRequisitos, String nome, int creditos, int periodo, String dificuldade){
 		this.nome = nome;
 		this.preRequisitos = preRequisitos;
 		this.creditos = creditos;
@@ -66,7 +66,7 @@ public class Disciplina implements Comparable<Disciplina>{
 	 * 
 	 * @return dificuldade da disciplina
 	 */
-	public int getDificuldade() {
+	public String getDificuldade() {
 		return dificuldade;
 	}
 	
