@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * Classe de exceção para Limite de Créditos
+ * @author
+ *
+ */
 public class LimiteDeCreditosException extends Exception{
 	
 	private static final long serialVersionUID = 1L;

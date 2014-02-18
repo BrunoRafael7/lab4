@@ -1,55 +1,55 @@
-[]-Cálculo_Diferencial_e_Integral_I-4-1
-[]-Álgebra_Vetorial_e_Geometria_Analítica-4-1
-[]-Leitura_e_Produção_de_Textos-4-1
-[]-Programação_I-4-1
-[]-Introdução_à_Computação-4-1
-[]-Laboratório_de_Programação_I-4-1
-[Cálculo_Diferencial_e_Integral_I]-Cálculo_Diferencial_e_Integral_II-4-2
-[]-Matemática_Discreta-4-2
-[]-Metodologia_Científica-4-2
-[Programação_I,Laboratório_de_Programação_I,Introdução_à_Computação]-Programação_II-4-2
-[Programação_I,Laboratório_de_Programação_I]-Teoria_dos_Grafos-2-2
-[Cálculo_Diferencial_e_Integral_I,Álgebra_Vetorial_e_Geometria_Analítica]-Fundamentos_de_Física_Clássica-4-2
-[Programação_I,Laboratório_de_Programação_I,Introdução_à_Computação]-Laboratório_de_Programação_II-4-2
-[Álgebra_Vetorial_e_Geometria_Analítica]-Álgebra_Linear-4-3
-[Cálculo_Diferencial_e_Integral_II]-Probabilidade_e_Estatística-4-3
-[Matemática_Discreta,Introdução_à_Computação,Teoria_dos_Grafos]-Teoria_da_Computação-4-3
-[Programação_II,Teoria_dos_Grafos,Laboratório_de_Programação_II]-Estruturas_de_Dados_e_Algoritmos-4-3
-[Cálculo_Diferencial_e_Integral_II,Fundamentos_de_Física_Clássica]-Fundamentos_de_Física_Moderna-4-3
-[]-Gerência_da_Informação-4-3
-[Programação_II,Teoria_dos_Grafos,Laboratório_de_Programação_II]-Laboratório_de_Estruturas_de_Dados_e_Algoritmos-4-3
-[Probabilidade_e_Estatística,Álgebra_Linear]-Métodos_Estatísticos-4-4
-[Teoria_da_Computação,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Paradigmas_de_Linguagens_de_Programação-2-4
-[Teoria_da_Computação]-Lógica_Matemática-4-4
-[Fundamentos_de_Física_Moderna,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Organização_e_Arquitetura_de_Computadores_I-4-4
-[Probabilidade_e_Estatística,Programação_II,Laboratório_de_Programação_II]-Engenharia_de_Software_I-4-4
-[Gerência_da_Informação]-Sistemas_de_Informação_I-4-4
-[Fundamentos_de_Física_Moderna,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Lab_de_Organização_e_Arquitetura_de_Computadores-4-4
-[]-Informática_e_Sociedade-2-5
-[Cálculo_Diferencial_e_Integral_II,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos,Lógica_Matemática]-Análise_e_Técnicas_de_Algoritmos-4-5
-[Organização_e_Arquitetura_de_Computadores_I,Lab_de_Organização_e_Arquitetura_de_Computadores,Paradigmas_de_Linguagens_de_Programação]-Compiladores-4-5
-[Organização_e_Arquitetura_de_Computadores_I,Lab_de_Organização_e_Arquitetura_de_Computadores]-Redes_de_Computadores-4-5
-[Sistemas_de_Informação_I]-Bancos_de_Dados_I-4-5
-[Sistemas_de_Informação_I]-Sistemas_de_Informação_II-4-5
-[Engenharia_de_Software_I]-Laboratório_de_Engenharia_de_Software-2-5
-[]-Direito_e_Cidadania-4-6
-[Organização_e_Arquitetura_de_Computadores_I,Laboratório_de_Organização_e_Arquitetura_de_Computadores]-Sistemas_Operacionais-4-6
-[Redes_de_Computadores]-Interconexão_de_Redes_de_Computadores-2-6
-[Sistemas_de_Informação_I,Banco_de_Dados_I]-Banco_de_Dados_II-4-6
-[Análise_e_Técnicas_de_Algoritmos,Paradigmas_de_Linguagens_de_Programação,Métodos_Estatísticos]-Inteligência_Artificial_I-4-6
-[Redes_de_Computadores]-Laboratório_de_Interconexão_de_Redes_de_Computadores-2-6
-[]-Optativa_1-4-6
-[]-Optativa_2-4-6
-[Álgebra_Linear,Análise_e_Técnicas_de_Algoritmos]-Métodos_e_Software_Numéricos-4-7
-[Probabilidade_e_Estatística]-Avaliação_de_Desempenho_de_Sistemas_Discretos-4-7
-[Laboratório_de_Engenharia_de_Software,Metodologia_Científica]-Projeto_em_Computação_I-4-7
-[]-Optativa_3-4-7
-[]-Optativa_4-4-7
-[]-Optativa_5-4-7
-[]-Optativa_6-4-7
-[Projeto_em_Computação_I]-Projeto_em_Computação_II-6-8
-[]-Optativa_7-4-8
-[]-Optativa_8-4-8
-[]-Optativa_9-4-8
-[]-Optativa_10-4-8
-[]-Optativa_11-2-8
+[]-Cálculo_Diferencial_e_Integral_I-4-1-Difícil
+[]-Álgebra_Vetorial_e_Geometria_Analítica-4-1-Mediano
+[]-Leitura_e_Produção_de_Textos-4-1-Muito Fácil
+[]-Programação_I-4-1-Mediano
+[]-Introdução_à_Computação-4-1-Fácil
+[]-Laboratório_de_Programação_I-4-1-Mediano
+[Cálculo_Diferencial_e_Integral_I]-Cálculo_Diferencial_e_Integral_II-4-2-Muito Difícil
+[]-Matemática_Discreta-4-2-Mediano
+[]-Metodologia_Científica-4-2-Difícil
+[Programação_I,Laboratório_de_Programação_I,Introdução_à_Computação]-Programação_II-4-2-Mediano
+[Programação_I,Laboratório_de_Programação_I]-Teoria_dos_Grafos-2-2-Mediano
+[Cálculo_Diferencial_e_Integral_I,Álgebra_Vetorial_e_Geometria_Analítica]-Fundamentos_de_Física_Clássica-4-2-Muito Difícil
+[Programação_I,Laboratório_de_Programação_I,Introdução_à_Computação]-Laboratório_de_Programação_II-4-2-Mediano
+[Álgebra_Vetorial_e_Geometria_Analítica]-Álgebra_Linear-4-3-Muito Difícil
+[Cálculo_Diferencial_e_Integral_II]-Probabilidade_e_Estatística-4-3-Muito Difícil
+[Matemática_Discreta,Introdução_à_Computação,Teoria_dos_Grafos]-Teoria_da_Computação-4-3-Mediano
+[Programação_II,Teoria_dos_Grafos,Laboratório_de_Programação_II]-Estruturas_de_Dados_e_Algoritmos-4-3-Difícil
+[Cálculo_Diferencial_e_Integral_II,Fundamentos_de_Física_Clássica]-Fundamentos_de_Física_Moderna-4-3-Muito Difícil
+[]-Gerência_da_Informação-4-3-Mediano
+[Programação_II,Teoria_dos_Grafos,Laboratório_de_Programação_II]-Laboratório_de_Estruturas_de_Dados_e_Algoritmos-4-3-Difícil
+[Probabilidade_e_Estatística,Álgebra_Linear]-Métodos_Estatísticos-4-4-Difícil
+[Teoria_da_Computação,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Paradigmas_de_Linguagens_de_Programação-2-4-Difícil
+[Teoria_da_Computação]-Lógica_Matemática-4-4-Difícil
+[Fundamentos_de_Física_Moderna,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Organização_e_Arquitetura_de_Computadores_I-4-4-Mediano
+[Probabilidade_e_Estatística,Programação_II,Laboratório_de_Programação_II]-Engenharia_de_Software_I-4-4-Difícil
+[Gerência_da_Informação]-Sistemas_de_Informação_I-4-4-Difícil
+[Fundamentos_de_Física_Moderna,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos]-Lab_de_Organização_e_Arquitetura_de_Computadores-4-4-Muito Difícil
+[]-Informática_e_Sociedade-2-5-Muito Fácil
+[Cálculo_Diferencial_e_Integral_II,Estruturas_de_Dados_e_Algoritmos,Laboratório_de_Estruturas_de_Dados_e_Algoritmos,Lógica_Matemática]-Análise_e_Técnicas_de_Algoritmos-4-5-Muito Difícil
+[Organização_e_Arquitetura_de_Computadores_I,Lab_de_Organização_e_Arquitetura_de_Computadores,Paradigmas_de_Linguagens_de_Programação]-Compiladores-4-5-Muito Difícil
+[Organização_e_Arquitetura_de_Computadores_I,Lab_de_Organização_e_Arquitetura_de_Computadores]-Redes_de_Computadores-4-5-Muito Difícil
+[Sistemas_de_Informação_I]-Bancos_de_Dados_I-4-5-Mediano
+[Sistemas_de_Informação_I]-Sistemas_de_Informação_II-4-5-Difícil
+[Engenharia_de_Software_I]-Laboratório_de_Engenharia_de_Software-2-5-Muito Difícil
+[]-Direito_e_Cidadania-4-6-Muito Fácil
+[Organização_e_Arquitetura_de_Computadores_I,Laboratório_de_Organização_e_Arquitetura_de_Computadores]-Sistemas_Operacionais-4-6-Difícil
+[Redes_de_Computadores]-Interconexão_de_Redes_de_Computadores-2-6-Muito Difícil
+[Sistemas_de_Informação_I,Banco_de_Dados_I]-Banco_de_Dados_II-4-6-Muito Difícil
+[Análise_e_Técnicas_de_Algoritmos,Paradigmas_de_Linguagens_de_Programação,Métodos_Estatísticos]-Inteligência_Artificial_I-4-6-Muito Difícil
+[Redes_de_Computadores]-Laboratório_de_Interconexão_de_Redes_de_Computadores-2-6-Muito Difícil
+[]-Optativa_1-4-6-Fácil
+[]-Optativa_2-4-6-Fácil
+[Álgebra_Linear,Análise_e_Técnicas_de_Algoritmos]-Métodos_e_Software_Numéricos-4-7-Muito Difícil
+[Probabilidade_e_Estatística]-Avaliação_de_Desempenho_de_Sistemas_Discretos-4-7-Muito Difícil
+[Laboratório_de_Engenharia_de_Software,Metodologia_Científica]-Projeto_em_Computação_I-4-7-Muito Difícil
+[]-Optativa_3-4-7-Fácil
+[]-Optativa_4-4-7-Fácil
+[]-Optativa_5-4-7-Fácil
+[]-Optativa_6-4-7-Fácil
+[Projeto_em_Computação_I]-Projeto_em_Computação_II-6-8-Muito Difícil
+[]-Optativa_7-4-8-Fácil
+[]-Optativa_8-4-8-Fácil
+[]-Optativa_9-4-8-Fácil
+[]-Optativa_10-4-8-Fácil
+[]-Optativa_11-2-8-Fácil
