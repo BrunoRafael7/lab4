@@ -45,7 +45,7 @@
 					                @for(disciplina <- planoDeCurso.getDisciplinasDoPeriodo(1)){
 					                    <li id=@disciplina.getNome() class="descricaoDeDisciplinaAlocada">
 						                     <nome>@disciplina.getNome()</nome>
-						                     <totalDeCreditosDaDisciplina>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text>
+						                     <totalDeCreditosDaDisciplina>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text><br></br>
 						                     <dificuldade>@disciplina.getDificuldade()</dificuldade>
 						                </li>
 					                }
@@ -59,7 +59,7 @@
 							@for(disciplina <- planoDeCurso.getDisciplinasNaoAlocadas()){
 								 <li id=@disciplina.getNome() class="descricaoDeDisciplinaNaoAlocada">
 				                       <nome>@disciplina.getNome()</nome>
-				                       <totalDeCreditosDaDisciplina id=@disciplina.getCreditos()>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text>
+				                       <totalDeCreditosDaDisciplina id=@disciplina.getCreditos()>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text><br></br>
 				                       <dificuldade>@disciplina.getDificuldade()</dificuldade>
 				                 </li>
 							}

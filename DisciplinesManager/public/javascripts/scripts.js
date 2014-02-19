@@ -56,7 +56,9 @@ function connectToLists(){
 								var mensagemCompleta = mensagem1 + mensagem2 + nomesDasDisciplinas;
 								var nomesSemEspacos = nomesDasDisciplinas.trim();
 								alert(nomesSemEspacos);
-								createConfirmMessage(nomesSemEspacos.split(" "), mensagemCompleta);
+								var split = nomesSemEspacos.split(" ");
+								alert(split);
+								createConfirmMessage("/" + split + "/", mensagemCompleta);
 							}else{
 								$('.sortable-list').sortable( 'cancel' );
 							}
@@ -126,9 +128,10 @@ function alterTable(proximoPeriodo){
 function _updateTooltipsAndEffects(){
 	$('#colunasDeDisciplinas li').hover(function(){
 				var disciplina = $(this);
-                disciplina.stop().animate({"width" : 490, "height" : 50},100,function(){
-                    disciplina.animate({"width" : 492, "height" : 52},100, function(){
-                        disciplina.animate({"width" : 490, "height" : 50},100);
+				
+                disciplina.stop().animate({"width" : 530, "height" : 91},100,function(){
+                    disciplina.animate({"width" : 532, "height" : 93},100, function(){
+                        disciplina.animate({"width" : 530, "height" : 91},100);
                     });
                 });
                 var nomeDaDisciplina = new String(disciplina.children("nome").html());
@@ -149,15 +152,15 @@ function _updateTooltipsAndEffects(){
 			    }
 				
             }, function(){
-                $(this).stop().animate({"width" : 480, "height" : 41},100);
+                $(this).stop().animate({"width" : 520, "height" : 81},100);
             });
 	
 }
 
 function createConfirmMessage(nomesDasDisciplinas, mensagemCompleta){
-	var confirmaExclusao = confirm(mensagemCompleta);
-	if(confirmaExclusao){
-		
+	var c = confirm('dfsdfsdfsdf');
+	if(c){
+		alert("Disciplinas excluídas");
 	}else{
 		alert("sdfsdf");
 	}

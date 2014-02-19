@@ -65,7 +65,7 @@ nome-principal {
 	margin-bottom:10px;
 	height: 600px;
 	width: 1280px;
-	margin-left:30px;
+	margin-left:40px;
 }
 
 .coluna {
@@ -86,21 +86,14 @@ nome-principal {
 	
 }
 
-.ui-icon{
-	float:left;
-	margin:0 7px 20px 0;
-	color: #DD1144
-}
-
-
 .descricaoDeDisciplinaAlocada, .descricaoDeDisciplinaNaoAlocada{
-	width: 480px;
+	width:520px;
 }
 .disciplina{
 	width: 138px;
 }
 
-.disciplina, .descricaoDeDisciplinaAlocada,.descricaoDeDisciplinaNaoAlocada, .btn {
+.descricaoDeDisciplinaAlocada,.descricaoDeDisciplinaNaoAlocada, .btn {
 	background-color: #9FB6CD;
 	margin:auto;
 	margin-top:6px;
