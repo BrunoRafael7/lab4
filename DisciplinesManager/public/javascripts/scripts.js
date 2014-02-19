@@ -155,13 +155,17 @@ function _updateTooltipsAndEffects(){
 }
 
 function createConfirmMessage(nomesDasDisciplinas, mensagemCompleta){
-	confirmaExclusao = confirm(mensagemCompleta);
-	if(confirmaExclusao){
-		alert("Disciplinas excluídas");
-	}else{
-		alert("sdfsdf");
-	}
-	alert(3);
+	alert(1);
+	$.confirm({
+	    text: mensagemCompleta,
+	    confirm: function(button) {
+	       alert("Disciplinas excluídas");
+	    },
+	    cancel: function(button) {
+	        alert("sdfsdf");
+	    }
+	});
+	alert(2);
 
 /*
 	 var dialog = "<div id=\"dialog-confirm\" title=\"Remoção de disciplinas\">"+

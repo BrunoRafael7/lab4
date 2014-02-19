@@ -320,6 +320,7 @@ public class BehaviorTest {
 		} catch (LimiteDeCreditosException e) {
 			fail();
 		}
+		
 	}
 
 	@Test
