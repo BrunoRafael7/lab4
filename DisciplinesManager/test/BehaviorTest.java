@@ -288,6 +288,16 @@ public class BehaviorTest {
 			planoDeCurso.alocaDisciplina("Laboratório_de_Programação_II", SEGUNDO_PERIODO);
 			
 			planoDeCurso.alocaDisciplina("Fundamentos_de_Física_Moderna", 3);
+			
+			planoDeCurso.disciplinaPodeSerDesalocada("Fundamentos_de_Física_Clássica", 2);
+			
+		}catch(PreRequisitosException e){
+			e.printStackTrace();
+		}catch(LimiteDeCreditosException e){
+			
+		}
+		
+		try{
 			planoDeCurso.alocaDisciplina("Teoria_da_Computação", 3);
 			planoDeCurso.alocaDisciplina("Estruturas_de_Dados_e_Algoritmos", 3);
 			planoDeCurso.alocaDisciplina("Laboratório_de_Estruturas_de_Dados_e_Algoritmos", 3);
@@ -307,7 +317,6 @@ public class BehaviorTest {
 			fail();
 			
 		} catch (PreRequisitosException e) {
-			e.printStackTrace();
 			assertTrue(e.getMessage().equals("<div>" +
 											 "<status>confirm</status>" +
 											 "<message>Existem disciplinas dependentes alocadas</message>" +
