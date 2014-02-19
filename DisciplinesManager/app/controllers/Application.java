@@ -54,6 +54,7 @@ public class Application extends Controller{
 		} catch (PreRequisitosException e) {
 			return created(e.getMessage());
 		}
+		System.out.println(HTMLResult.DISCIPLINA_PODE_SER_ALOCADA.getMessage());
 		
 		return ok(HTMLResult.DISCIPLINA_PODE_SER_ALOCADA.getMessage());
 	}

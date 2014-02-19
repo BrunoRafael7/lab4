@@ -155,9 +155,9 @@ function _updateTooltipsAndEffects(){
 }
 
 function createConfirmMessage(nomesDasDisciplinas, mensagemCompleta){
-	confirmaExclusao = confirm(mensagemCompleta);
+	var confirmaExclusao = confirm(mensagemCompleta);
 	if(confirmaExclusao){
-		alert("Disciplinas excluídas");
+		
 	}else{
 		alert("sdfsdf");
 	}

@@ -7,8 +7,9 @@
 </br>
 
 <head>
-	<script type="text/javascript" src="assets/javascripts/js/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="assets/javascripts/js/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="assets/javascripts/jQuery/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="assets/javascripts/jQuery/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="assets/javascripts/jQuery/jquery.confirm.js"></script>
 	<script type="text/javascript" src="assets/javascripts/scripts.js"></script>
 	
 	<div class="titulo">
@@ -45,6 +46,7 @@
 					                    <li id=@disciplina.getNome() class="descricaoDeDisciplinaAlocada">
 						                     <nome>@disciplina.getNome()</nome>
 						                     <totalDeCreditosDaDisciplina>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text>
+						                     <dificuldade>@disciplina.getDificuldade()</dificuldade>
 						                </li>
 					                }
 						   </ul>
@@ -54,10 +56,11 @@
 				<br></br><br><br/>
 					<titulo>Disciplinas não alocadas</titulo>
 						<ul id="listaDeDisciplinasNaoAlocadas" class="sortable-list">
-							@for(disc <- planoDeCurso.getDisciplinasNaoAlocadas()){
-								 <li id=@disc.getNome() class="descricaoDeDisciplinaNaoAlocada">
-				                       <nome>@disc.getNome()</nome>
-				                       <totalDeCreditosDaDisciplina id=@disc.getCreditos()>@disc.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text>
+							@for(disciplina <- planoDeCurso.getDisciplinasNaoAlocadas()){
+								 <li id=@disciplina.getNome() class="descricaoDeDisciplinaNaoAlocada">
+				                       <nome>@disciplina.getNome()</nome>
+				                       <totalDeCreditosDaDisciplina id=@disciplina.getCreditos()>@disciplina.getCreditos()</totalDeCreditosDaDisciplina><text> créditos</text>
+				                       <dificuldade>@disciplina.getDificuldade()</dificuldade>
 				                 </li>
 							}
 						</ul>
