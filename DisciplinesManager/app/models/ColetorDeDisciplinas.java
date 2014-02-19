@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * Classe que coleta os dados das disciplinas de um arquivo.
- * @author 
  *
  */
 public class ColetorDeDisciplinas {
@@ -36,6 +35,7 @@ public class ColetorDeDisciplinas {
 	 */
 	public List<Disciplina> coletar(){
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(
 							new FileInputStream(new File(path))

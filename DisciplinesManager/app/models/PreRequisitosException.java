@@ -2,7 +2,6 @@ package models;
 
 /**
  * Classe de exceção para Pré-Requisitos
- * @author
  *
  */
 public class PreRequisitosException extends Exception{

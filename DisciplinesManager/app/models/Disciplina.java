@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * Classe Disciplina
- * @author
  *
  */
 public class Disciplina implements Comparable<Disciplina>{
@@ -62,6 +61,10 @@ public class Disciplina implements Comparable<Disciplina>{
 		return periodo;
 	}
 	
+	/*
+	 * INFORMATION EXPERT: Essa classe conhece disciplinas e suas caracteristicas
+	 * com isso nela deve verificar se há pre-requisitos nas disciplinas.
+	 */
 	public boolean contemAoMenosUmPrerequisito(List<Disciplina> disciplinas){
 		for(Disciplina d : disciplinas){
 			if(this.contemPreRequisito(d)){
