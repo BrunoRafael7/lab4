@@ -611,14 +611,4 @@ public class BehaviorTest {
 			e.getMessage();
 		}
 	}
-
-	@Test
-	public void naoDeveAddEmOutroPeriodoSeAnteriorNaoTemMinimoDeCreditos() {
-
-	}
-	
-	@Test
-	public void deveDesalocarDisciplinasSemPreRequisito() {
-		
-	}
 }
