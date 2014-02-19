@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * Classe Periodo
- * @author 
  *
  */
 public class Periodo {
